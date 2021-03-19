@@ -1,13 +1,21 @@
 <x-guest-layout>
     <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+        <x-slot name="image">
+            <img
+                aria-hidden="true"
+                class="object-cover w-full h-full"
+                src="{{ asset('img/create-account-office.jpeg') }}"
+                alt="Office"
+            />
+        </x-slot>
+
+        <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
+            Register
+        </h1>
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
@@ -45,15 +53,21 @@
                                 name="password_confirmation" required />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+            <x-button>
+                {{ __('Register') }}
+            </x-button>
+
+            <hr class="my-8" />
+
+            <p class="mt-4">
+                <a
+                    class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
+                    href="{{ route('login') }}"
+                >
                     {{ __('Already registered?') }}
                 </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
+            </p>
         </form>
+
     </x-auth-card>
 </x-guest-layout>
