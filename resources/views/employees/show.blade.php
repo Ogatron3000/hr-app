@@ -13,14 +13,14 @@
             </p>
         </div>
         <div class="mt-4">
-            <p>Name: {{ $employee->name }}</p>
-            <p>Birthdate: {{ $employee->birthdate }}</p>
-            <p>ID: {{ $employee->national_id }}</p>
-            <p>Address: {{ $employee->address }}</p>
-            <p>Email: {{ $employee->email }}</p>
-            <p>Phone: {{ $employee->phone }}</p>
-            <p>Office: {{ $employee->office }}</p>
-            <p>Notes: {{ $employee->notes }}</p>
+            <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Name</p> <p class="mt-1">{{ $employee->name }}</p></div>
+            <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Birthdate</p> <p class="mt-1">{{ $employee->birthdate }}</p></div>
+            <div class="border-t p-2"><p class="text-xs font-semibold uppercase">ID</p> <p class="mt-1">{{ $employee->national_id }}</p></div>
+            <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Address</p> <p class="mt-1">{{ $employee->address }}</p></div>
+            <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Email</p> <p class="mt-1">{{ $employee->email }}</p></div>
+            <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Phone</p> <p class="mt-1">{{ $employee->phone }}</p></div>
+            <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Office</p> <p class="mt-1">{{ $employee->office }}</p></div>
+            <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Notes</p><p class="mt-1">{{ $employee->notes }}</p></div>
         </div>
     </div>
 </x-app-layout>
