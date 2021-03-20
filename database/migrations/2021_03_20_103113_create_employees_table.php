@@ -23,7 +23,7 @@ class CreateEmployeesTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('office');
-            $table->text('notes');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

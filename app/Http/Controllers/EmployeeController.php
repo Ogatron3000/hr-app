@@ -18,4 +18,28 @@ class EmployeeController extends Controller
     {
         return view('employees.show', compact('employee'));
     }
+
+    public function create()
+    {
+        return view('employees.create');
+    }
+
+    public function store()
+    {
+        $attributes = request()->validate([
+            'name' => 'required',
+            'photo' => 'nullable',
+            'birthdate' => 'required|date',
+            'national_id' => 'required',
+            'address' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'office' => 'required',
+            'notes' => 'nullable'
+        ]);
+
+        $employee = Employee::create($attributes);
+
+        return redirect($employee->path());
+    }
 }

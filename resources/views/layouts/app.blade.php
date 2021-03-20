@@ -16,7 +16,11 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
 
-        {{-- Alpine Interractivity --}}
+        {{-- Temporary: Flatpickr --}}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+        {{-- Temporary: Alpine Interractivity --}}
         <script>
             function data() {
                 function getThemeFromLocalStorage() {
@@ -87,7 +91,7 @@
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
             @include('layouts.sidebar')
             <div class="flex flex-col flex-1 w-full">
-                @include('layouts.hamburger')
+                @include('layouts.navbar')
                 <main class="h-full overflow-y-auto">
                     <div class="container px-6 mx-auto grid">
                         {{ $slot }}
@@ -96,4 +100,7 @@
             </div>
         </div>
     </body>
+    <script>
+        flatpickr('#birthdate', {maxDate: 'today'});
+    </script>
 </html>

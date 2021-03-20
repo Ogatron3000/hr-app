@@ -13,7 +13,10 @@ class ManageEmployeesTest extends TestCase
 
     public function test_guests_cannot_manage_employees(): void
     {
+        $employee = Employee::factory()->create();
+
         $this->get(route('employees.index'))->assertRedirect('/login');
+        $this->get($employee->path())->assertRedirect('/login');
     }
 
     public function test_user_can_see_employees(): void
@@ -32,8 +35,6 @@ class ManageEmployeesTest extends TestCase
 
     public function test_user_can_view_employee_details(): void
     {
-        $this->withoutExceptionHandling();
-
         $employee = Employee::factory()->create();
 
         $this->signIn();
@@ -46,7 +47,23 @@ class ManageEmployeesTest extends TestCase
             ->assertSee($employee->address)
             ->assertSee($employee->email)
             ->assertSee($employee->phone)
-            ->assertSee($employee->office)
-            ->assertSee($employee->notes);
+            ->assertSee($employee->office);
+    }
+
+    public function test_user_can_add_employee(): void
+    {
+        $this->withoutExceptionHandling();
+
+        $this->signIn();
+
+        $this->get(route('employees.create'))->assertOk();
+
+        $this->followingRedirects()
+            ->post(route('employees.store'), $employee = Employee::factory()->raw())
+            ->assertSee($employee['name'])
+            ->assertSee($employee['birthdate'])
+            ->assertSee($employee['national_id']);
+
+        $this->assertDatabaseHas('employees', $employee);
     }
 }

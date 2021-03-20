@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="flex flex-col p-4 mt-6 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+    <div class="flex flex-col p-4 mt-6 bg-white rounded-lg shadow-xs dark:bg-gray-800 dark:text-gray-400">
         <div class="flex items-center">
             <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                 <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
