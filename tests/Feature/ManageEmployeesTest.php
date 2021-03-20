@@ -16,7 +16,21 @@ class ManageEmployeesTest extends TestCase
         $this->get(route('employees.index'))->assertRedirect('/login');
     }
 
-    public function test_authenticated_user_can_see_employees(): void
+    public function test_user_can_see_employees(): void
+    {
+        $employee = Employee::factory()->create();
+
+        $this->signIn();
+
+        $this->get(route('employees.index'))
+            ->assertOk()
+            ->assertSee($employee->name);
+            // ->assertSee($employee->birthdate)
+            // ->assertSee($employee->address)
+            // ->assertSee($employee->phone);
+    }
+
+    public function test_user_can_view_employee_details(): void
     {
         $this->withoutExceptionHandling();
 
@@ -24,10 +38,15 @@ class ManageEmployeesTest extends TestCase
 
         $this->signIn();
 
-        $this->get(route('employees.index'))->assertOk()
+        $this->get($employee->path())
+            ->assertOk()
             ->assertSee($employee->name)
             ->assertSee($employee->birthdate)
+            ->assertSee($employee->national_id)
             ->assertSee($employee->address)
-            ->assertSee($employee->phone);
+            ->assertSee($employee->email)
+            ->assertSee($employee->phone)
+            ->assertSee($employee->office)
+            ->assertSee($employee->notes);
     }
 }

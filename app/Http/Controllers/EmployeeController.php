@@ -13,4 +13,9 @@ class EmployeeController extends Controller
 
         return view('employees.index', compact('employees'));
     }
+
+    public function show(Employee $employee)
+    {
+        return view('employees.show', compact('employee'));
+    }
 }

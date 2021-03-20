@@ -26,4 +26,5 @@ require __DIR__.'/auth.php';
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
+    Route::get('/employees/{employee}', [EmployeeController::class, 'show'])->name('employees.show');
 });

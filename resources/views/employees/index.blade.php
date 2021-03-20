@@ -6,10 +6,10 @@
                 <tr
                     class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                 >
-                    <th class="px-4 py-3">Client</th>
-                    <th class="px-4 py-3">Amount</th>
+                    <th class="px-4 py-3">Employee</th>
+                    <th class="px-4 py-3">Wage</th>
                     <th class="px-4 py-3">Status</th>
-                    <th class="px-4 py-3">Date</th>
+                    <th class="px-4 py-3">Contract</th>
                 </tr>
                 </thead>
                 <tbody
@@ -35,7 +35,7 @@
                                     ></div>
                                 </div>
                                 <div>
-                                    <p class="font-semibold">{{ $employee->name }}</p>
+                                    <a href="{{ $employee->path() }}" class="font-semibold">{{ $employee->name }}</a>
                                     {{--<p class="text-xs text-gray-600 dark:text-gray-400">--}}
                                     {{--    10x Developer--}}
                                     {{--</p>--}}
