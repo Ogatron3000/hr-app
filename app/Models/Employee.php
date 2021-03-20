@@ -13,6 +13,6 @@ class Employee extends Model
 
     public function path()
     {
-        return 'employees/' . $this->id;
+        return '/employees/' . $this->id;
     }
 }

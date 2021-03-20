@@ -14,6 +14,6 @@ class EmployeeTest extends TestCase
     {
         $employee = Employee::factory()->create();
 
-        $this->assertEquals('employees/' . $employee->id, $employee->path());
+        $this->assertEquals('/employees/' . $employee->id, $employee->path());
     }
 }

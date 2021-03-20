@@ -42,4 +42,35 @@ class EmployeeController extends Controller
 
         return redirect($employee->path());
     }
+
+    public function edit(Employee $employee)
+    {
+        return view('employees.edit', compact('employee'));
+    }
+
+    public function update(Employee $employee)
+    {
+        $attributes = request()->validate([
+            'name' => 'required',
+            'photo' => 'nullable',
+            'birthdate' => 'required|date',
+            'national_id' => 'required',
+            'address' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'office' => 'required',
+            'notes' => 'nullable'
+        ]);
+
+        $employee->update($attributes);
+
+        return redirect($employee->path());
+    }
+
+    public function delete(Employee $employee)
+    {
+        $employee->delete();
+
+        return redirect(route('employees.index'));
+    }
 }
