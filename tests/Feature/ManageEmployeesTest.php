@@ -11,12 +11,12 @@ class ManageEmployeesTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_guests_cannot_manage_employees()
+    public function test_guests_cannot_manage_employees(): void
     {
-
+        $this->get(route('employees.index'))->assertRedirect('/login');
     }
 
-    public function test_authenticated_user_can_see_employees()
+    public function test_authenticated_user_can_see_employees(): void
     {
         $this->withoutExceptionHandling();
 

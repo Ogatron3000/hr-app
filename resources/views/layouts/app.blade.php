@@ -85,19 +85,15 @@
     </head>
     <body class="font-sans antialiased">
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            {{--<header class="bg-white shadow">--}}
-            {{--    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">--}}
-            {{--        {{ $header }}--}}
-            {{--    </div>--}}
-            {{--</header>--}}
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+            @include('layouts.sidebar')
+            <div class="flex flex-col flex-1 w-full">
+                @include('layouts.hamburger')
+                <main class="h-full overflow-y-auto">
+                    <div class="container px-6 mx-auto grid">
+                        {{ $slot }}
+                    </div>
+                </main>
+            </div>
         </div>
     </body>
 </html>
