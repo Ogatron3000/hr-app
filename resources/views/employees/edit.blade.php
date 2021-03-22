@@ -4,7 +4,7 @@
             @method('PATCH')
             @csrf
 
-            <h3 class="p-6 text-center text-xl">Add Employee</h3>
+            <h3 class="p-6 text-center text-xl">Edit Employee</h3>
 
             <div>
                 <x-label for="name" :value="__('Name')" />
