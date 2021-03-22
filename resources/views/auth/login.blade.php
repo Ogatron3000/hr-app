@@ -48,7 +48,7 @@
                 </label>
             </div>
 
-            <x-button class="w-full">
+            <x-button class="w-full mt-4">
                 {{ __('Log in') }}
             </x-button>
 

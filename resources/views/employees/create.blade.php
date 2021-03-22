@@ -58,9 +58,11 @@
                 >{{ old('notes') }}</textarea>
             </div>
 
-            <x-button>
-                {{ __('Submit') }}
-            </x-button>
+            <div class="flex justify-end">
+                <x-button class="mt-4">
+                    {{ __('Submit') }}
+                </x-button>
+            </div>
         </form>
 
 

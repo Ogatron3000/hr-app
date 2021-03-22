@@ -61,7 +61,7 @@
 
             <div class="flex justify-end">
                 <a href="{{ $employee->path() . '/edit' }}">
-                    <x-button>Submit</x-button>
+                    <x-button class="mt-4">Submit</x-button>
                 </a>
             </div>
         </form>

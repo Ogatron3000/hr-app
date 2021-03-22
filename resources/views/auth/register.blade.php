@@ -53,7 +53,7 @@
                                 name="password_confirmation" required />
             </div>
 
-            <x-button class="w-full">
+            <x-button class="w-full mt-4">
                 {{ __('Register') }}
             </x-button>
 
