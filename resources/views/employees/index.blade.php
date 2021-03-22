@@ -10,7 +10,7 @@
                     <th class="px-4 py-3">Wage</th>
                     <th class="px-4 py-3">Status</th>
                     <th class="px-4 py-3">Contract</th>
-                </tr>
+                </tr>rea
                 </thead>
                 <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
