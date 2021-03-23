@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Employee;
 use App\Models\EmployeeStatus;
+use Database\Factories\EmployeeFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -27,24 +28,21 @@ class ManageEmployeesTest extends TestCase
 
     public function test_user_can_see_employees(): void
     {
-        $employee = Employee::factory()->create();
-
         $this->signIn();
+
+        $employee = Employee::factory()->create();
 
         $this->get(route('employees.index'))
             ->assertOk()
             ->assertSee($employee->name);
-            // ->assertSee($employee->birthdate)
-            // ->assertSee($employee->address)
-            // ->assertSee($employee->phone);
     }
 
     public function test_user_can_view_employee_details(): void
     {
-        $employee = Employee::factory()->create();
-        $employee->addStatus(EmployeeStatus::factory()->raw(['employee_id' => $employee->id]));
-
         $this->signIn();
+
+        $employee = Employee::factory()->create();
+        $employee->addStatus(EmployeeStatus::factory()->raw(['employee_id' => '']));
 
         $this->get($employee->path())
             ->assertOk()
@@ -54,57 +52,66 @@ class ManageEmployeesTest extends TestCase
             ->assertSee($employee->address)
             ->assertSee($employee->email)
             ->assertSee($employee->phone)
-            ->assertSee($employee->office);
+            ->assertSee($employee->office)
+            ->assertSee($employee->status()->date)
+            ->assertSee($employee->status()->wage)
+            ->assertSee($employee->status()->bank->name)
+            ->assertSee($employee->status()->bank_account);
     }
 
     public function test_user_can_add_employee(): void
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
 
         $this->get(route('employees.create'))->assertOk();
 
-        $employee = ['employeeInfo'   => Employee::factory()->raw(),
-                     'employeeStatus' => EmployeeStatus::factory()->raw(['employee_id' => '']),
-        ];
+        $employee = array_merge(Employee::factory()->raw(), EmployeeStatus::factory()->raw(['employee_id' => '']));
 
         $this->followingRedirects()
             ->post(route('employees.store'), $employee)
-            ->assertSee($employee['employeeInfo']['name'])
-            ->assertSee($employee['employeeInfo']['birthdate'])
-            ->assertSee($employee['employeeInfo']['national_id'])
-            ->assertSee($employee['employeeStatus']['joined'])
-            ->assertSee($employee['employeeStatus']['wage']);
+            ->assertSee($employee['name'])
+            ->assertSee($employee['birthdate'])
+            ->assertSee($employee['joined'])
+            ->assertSee($employee['wage']);
 
-        $this->assertDatabaseHas('employees', $employee['employeeInfo']);
+        $this->assertNotNull(Employee::find(1));
         $this->assertNotNull(Employee::find(1)->status());
     }
 
     public function test_user_can_update_employee(): void
     {
-        $employee = Employee::factory()->create();
-
         $this->signIn();
 
-        $this->get($employee->path())->assertSee($employee->name);
+        $employee = Employee::factory()->create();
+        $employee->addStatus(EmployeeStatus::factory()->raw(['employee_id' => '']));
 
         $this->get($employee->path() . '/edit')->assertOk();
 
-        $this->followingRedirects()
-            ->patch($employee->path(), $updated = Employee::factory()->raw())
-            ->assertSee($updated['name']);
+        $updated = array_merge(Employee::factory()->raw(), EmployeeStatus::factory()->raw(['employee_id' => '']));
 
-        $this->assertDatabaseHas('employees', $updated);
+        $this->followingRedirects()
+            ->patch($employee->path(), $updated)
+            ->assertSee($updated['name'])
+            ->assertSee($updated['wage']);
+
+        $this->assertNotNull(Employee::find($employee->id));
+        $this->assertNotNull(Employee::find($employee->id)->status());
     }
 
     public function test_user_can_delete_employee(): void
     {
-        $employee = Employee::factory()->create();
-
         $this->signIn();
+
+        $employee = Employee::factory()->create();
+        $employee->addStatus($status = EmployeeStatus::factory()->raw(['employee_id' => '']));
 
         $this->followingRedirects()
             ->delete($employee->path())
-            ->assertDontSee($employee->name);
+            ->assertDontSee($employee->name)
+            ->assertDontSee($employee->wage);
+
+        $this->assertDatabaseCount('employees', 0);
+        $this->assertDatabaseCount('employee_statuses', 0);
+        $this->assertDatabaseCount('employee_status_history', 0);
     }
 }

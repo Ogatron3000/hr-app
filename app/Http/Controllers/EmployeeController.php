@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreEmployeeRequest;
+use App\Http\Requests\EmployeeRequest;
+use App\Models\Bank;
 use App\Models\Employee;
 use App\Models\EmployeeStatus;
 use Illuminate\Http\Request;
@@ -23,38 +24,39 @@ class EmployeeController extends Controller
 
     public function create()
     {
-        return view('employees.create');
+        $banks = Bank::all();
+
+        return view('employees.create', compact('banks'));
     }
 
-    public function store(StoreEmployeeRequest $request)
+    public function store(EmployeeRequest $request)
     {
-        $employee = Employee::create($request->validated()['employeeInfo']);
+        $validated = $request->validated();
+        $offset =  array_search("joined", array_keys($validated), true);
+        $employee = Employee::create(array_slice($validated, 0, $offset));
 
-        $employee->addStatus($request->validated()['employeeStatus']);
+        $employee->addStatus(array_slice($request->validated(), $offset));
 
         return redirect($employee->path());
     }
 
     public function edit(Employee $employee)
     {
-        return view('employees.edit', compact('employee'));
+        $banks = Bank::all();
+
+        // pre-load status
+        $employee['status'] = $employee->status();
+
+        return view('employees.edit', compact('employee', 'banks'));
     }
 
-    public function update(Employee $employee)
+    public function update(Employee $employee, EmployeeRequest $request)
     {
-        $attributes = request()->validate([
-            'name' => 'required',
-            'photo' => 'nullable',
-            'birthdate' => 'required|date',
-            'national_id' => 'required',
-            'address' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-            'office' => 'required',
-            'notes' => 'nullable'
-        ]);
+        $validated = $request->validated();
+        $offset =  array_search("joined", array_keys($validated), true);
+        $employee->update(array_slice($request->validated(), 0, $offset));
 
-        $employee->update($attributes);
+        $employee->addStatus(array_slice($request->validated(), $offset));
 
         return redirect($employee->path());
     }

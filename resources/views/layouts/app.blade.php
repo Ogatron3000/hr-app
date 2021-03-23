@@ -102,5 +102,6 @@
     </body>
     <script>
         flatpickr('#birthdate', {maxDate: 'today'});
+        flatpickr('#joined', {maxDate: 'today'});
     </script>
 </html>
