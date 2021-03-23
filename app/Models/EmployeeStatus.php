@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class EmployeeStatus extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
 
-    use HasFactory;
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class);
+    }
 }
