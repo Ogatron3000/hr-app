@@ -22,6 +22,7 @@ class CreateEmployeeStatusesTable extends Migration
             $table->decimal('wage', 10, 2);
             $table->foreignId('bank_id')->constrained();
             $table->string('bank_account');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

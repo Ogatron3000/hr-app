@@ -113,6 +113,5 @@ class ManageEmployeesTest extends TestCase
 
         $this->assertDatabaseCount('employees', 0);
         $this->assertDatabaseCount('employee_statuses', 0);
-        $this->assertDatabaseCount('employee_status_history', 0);
     }
 }

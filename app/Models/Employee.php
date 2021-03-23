@@ -24,19 +24,18 @@ class Employee extends Model
 
     public function statusHistory()
     {
-        return $this->belongsToMany(EmployeeStatus::class, 'employee_status_history')->withTimestamps();
+        return $this->hasMany(EmployeeStatus::class);
     }
 
     public function addStatus($newStatusAttributes)
     {
         if ($status = $this->status()) {
-            $this->statusHistory()->updateExistingPivot($status->id, ['deleted_at' => Carbon::now()]);
+            $status->delete();
         }
 
         $newStatusAttributes['employee_id'] = $this->id;
-        $newStatus = EmployeeStatus::create($newStatusAttributes);
 
-        $this->statusHistory()->attach($newStatus->id);
+        $newStatus = EmployeeStatus::create($newStatusAttributes);
 
         return $newStatus;
     }

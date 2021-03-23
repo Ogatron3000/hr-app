@@ -18,12 +18,11 @@ class EmployeeTest extends TestCase
         $this->assertEquals('/employees/' . $employee->id, $employee->path());
     }
 
-    public function test_it_belongs_to_many_employment_statuses(): void
+    public function test_it_has_many_employment_statuses(): void
     {
+        $this->withoutExceptionHandling();
         $employee = Employee::factory()->create();
-        $status = EmployeeStatus::factory()->create();
-
-        $employee->statusHistory()->attach($status->id);
+        EmployeeStatus::factory()->create(['employee_id' => $employee->id]);
 
         $this->assertInstanceOf(EmployeeStatus::class, $employee->statusHistory[0]);
         $this->assertInstanceOf(EmployeeStatus::class, $employee->status());
