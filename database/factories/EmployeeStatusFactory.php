@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\ActiveStatus;
+use App\Models\ContractType;
 use App\Models\EmployeeStatus;
 use App\Models\Bank;use App\Models\Employee;use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,8 +25,8 @@ class EmployeeStatusFactory extends Factory
     {
         return [
             'employee_id' => Employee::factory(),
-            // $table->foreignId('employment_type_id')->constrained();
-            // $table->foreignId('employment_status_id')->constrained();
+            'contract_type_id' => ContractType::factory(),
+            'active_status_id' => ActiveStatus::factory(),
             'joined' => $this->faker->date(),
             'wage' => 1500.00,
             'bank_id' => Bank::factory(),

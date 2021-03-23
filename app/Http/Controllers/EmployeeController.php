@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeRequest;
+use App\Models\ActiveStatus;
 use App\Models\Bank;
+use App\Models\ContractType;
 use App\Models\Employee;
 use App\Models\EmployeeStatus;
 use Illuminate\Http\Request;
@@ -24,9 +26,11 @@ class EmployeeController extends Controller
 
     public function create()
     {
+        $contractTypes = ContractType::all();
+        $activeStatuses = ActiveStatus::all();
         $banks = Bank::all();
 
-        return view('employees.create', compact('banks'));
+        return view('employees.create', compact('contractTypes', 'activeStatuses', 'banks'));
     }
 
     public function store(EmployeeRequest $request)
@@ -42,12 +46,14 @@ class EmployeeController extends Controller
 
     public function edit(Employee $employee)
     {
+        $contractTypes = ContractType::all();
+        $activeStatuses = ActiveStatus::all();
         $banks = Bank::all();
 
         // pre-load status
         $employee['status'] = $employee->status();
 
-        return view('employees.edit', compact('employee', 'banks'));
+        return view('employees.edit', compact('employee', 'contractTypes', 'activeStatuses', 'banks'));
     }
 
     public function update(Employee $employee, EmployeeRequest $request)

@@ -16,8 +16,8 @@ class CreateEmployeeStatusesTable extends Migration
         Schema::create('employee_statuses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->constrained()->onDelete('cascade');
-            // $table->foreignId('employment_type_id')->constrained();
-            // $table->foreignId('employment_status_id')->constrained();
+            $table->foreignId('contract_type_id')->constrained();
+            $table->foreignId('active_status_id')->constrained();
             $table->date('joined');
             $table->decimal('wage', 10, 2);
             $table->foreignId('bank_id')->constrained();

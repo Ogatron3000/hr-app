@@ -11,6 +11,16 @@ class EmployeeStatus extends Model
 
     protected $guarded = [];
 
+    public function contractType()
+    {
+        return $this->belongsTo(ContractType::class);
+    }
+
+    public function activeStatus()
+    {
+        return $this->belongsTo(ActiveStatus::class);
+    }
+
     public function bank()
     {
         return $this->belongsTo(Bank::class);

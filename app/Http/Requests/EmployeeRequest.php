@@ -36,6 +36,8 @@ class EmployeeRequest extends FormRequest
             'notes' => 'nullable',
 
             // Employee Status
+            'contract_type_id' => 'required',
+            'active_status_id' => 'required',
             'joined' => 'required|date',
             'wage' => 'required',
             'bank_id' => 'required',
@@ -45,7 +47,7 @@ class EmployeeRequest extends FormRequest
 
     public function splitValidated(): array
     {
-        $offset =  array_search("joined", array_keys($this->validated()), true);
+        $offset =  array_search("contract_type_id", array_keys($this->validated()), true);
         $employeeInfo = array_slice($this->validated(), 0, $offset);
         $employeeStatus = array_slice($this->validated(), $offset);
 

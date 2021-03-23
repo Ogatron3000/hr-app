@@ -68,7 +68,28 @@
 
             <div class="flex mt-8">
                 <div class="w-1/2 px-4 py-3 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-400">
-                    <div>
+
+                    <div class="mt-4">
+                        <x-label for="contract_type_id" :value="__('Contract type')" />
+
+                        <select id="contract_type_id" name="contract_type_id" class="block w-full mt-1 text-sm border border-gray-300 rounded dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                            @foreach($contractTypes as $contractType)
+                                <option {{ $contractType->id == old('contract_type_id') ? 'selected' : '' }} value={{ $contractType->id }}>{{ $contractType->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mt-4">
+                        <x-label for="active_status_id" :value="__('Active status')" />
+
+                        <select id="active_status_id" name="active_status_id" class="block w-full mt-1 text-sm border border-gray-300 rounded dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                            @foreach($activeStatuses as $activeStatus)
+                                <option {{ $activeStatus->id == old('active_status_id') ? 'selected' : '' }} value={{ $activeStatus->id }}>{{ $activeStatus->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mt-4">
                         <x-label for="joined" :value="__('Joined')" />
 
                         <x-input id="joined" class="block mt-1 w-full" type="date" name="joined" :value="old('joined')" required />
