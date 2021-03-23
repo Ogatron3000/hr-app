@@ -21,6 +21,9 @@ class EmployeeController extends Controller
 
     public function show(Employee $employee)
     {
+        // pre-load status
+        $employee['status'] = $employee->status();
+
         return view('employees.show', compact('employee'));
     }
 

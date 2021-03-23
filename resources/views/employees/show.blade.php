@@ -72,12 +72,12 @@
                 </div>
             </div>
             <div class="mt-4">
-                <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Contract type</p> <p class="mt-1">{{ $employee->status()->contractType->name }}</p></div>
-                <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Active status</p> <p class="mt-1">{{ $employee->status()->activeStatus->name }}</p></div>
-                <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Date Joined</p> <p class="mt-1">{{ $employee->status()->joined }}</p></div>
-                <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Wage</p> <p class="mt-1">{{ $employee->status()->wage }}</p></div>
-                <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Bank</p> <p class="mt-1">{{ $employee->status()->bank->name }}</p></div>
-                <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Bank Account</p> <p class="mt-1">{{ $employee->status()->bank_account }}</p></div>
+                <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Contract type</p> <p class="mt-1">{{ $employee->status->contractType->name }}</p></div>
+                <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Active status</p> <p class="mt-1">{{ $employee->status->activeStatus->name }}</p></div>
+                <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Date Joined</p> <p class="mt-1">{{ $employee->status->joined }}</p></div>
+                <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Wage</p> <p class="mt-1">{{ $employee->status->wage }}</p></div>
+                <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Bank</p> <p class="mt-1">{{ $employee->status->bank->name }}</p></div>
+                <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Bank Account</p> <p class="mt-1">{{ $employee->status->bank_account }}</p></div>
             </div>
         </div>
     </div>
