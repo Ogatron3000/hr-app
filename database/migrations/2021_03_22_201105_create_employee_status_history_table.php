@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmploymentStatusesTable extends Migration
+class CreateEmployeeStatusHistoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateEmploymentStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('employment_statuses', function (Blueprint $table) {
+        Schema::create('employee_status_history', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('employee_id')->constrained()->onDelete('cascade');
+            $table->foreignId('employee_status_id')->constrained()->onDelete('cascade');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateEmploymentStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employment_statuses');
+        Schema::dropIfExists('employee_status_history');
     }
 }

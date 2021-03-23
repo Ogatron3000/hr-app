@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEmployeeRequest;
 use App\Models\Employee;
+use App\Models\EmployeeStatus;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -24,21 +26,14 @@ class EmployeeController extends Controller
         return view('employees.create');
     }
 
-    public function store()
+    public function store(StoreEmployeeRequest $request)
     {
-        $attributes = request()->validate([
-            'name' => 'required',
-            'photo' => 'nullable',
-            'birthdate' => 'required|date',
-            'national_id' => 'required',
-            'address' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-            'office' => 'required',
-            'notes' => 'nullable'
-        ]);
+        $employee = Employee::create($request->validated()['employeeInfo']);
+        $employeeStatusAttributes = $request->validated()['employeeStatus'];
+        $employeeStatusAttributes['employee_id'] = $employee->id;
+        $employeeStatus = EmployeeStatus::create($employeeStatusAttributes);
 
-        $employee = Employee::create($attributes);
+        $employee->addStatus($employeeStatus->id);
 
         return redirect($employee->path());
     }

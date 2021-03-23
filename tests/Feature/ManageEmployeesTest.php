@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Employee;
+use App\Models\EmployeeStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -41,6 +42,8 @@ class ManageEmployeesTest extends TestCase
     public function test_user_can_view_employee_details(): void
     {
         $employee = Employee::factory()->create();
+        $status = EmployeeStatus::factory()->create(['employee_id' => $employee->id]);
+        $employee->addStatus($status->id);
 
         $this->signIn();
 
@@ -57,17 +60,25 @@ class ManageEmployeesTest extends TestCase
 
     public function test_user_can_add_employee(): void
     {
+        $this->withoutExceptionHandling();
         $this->signIn();
 
         $this->get(route('employees.create'))->assertOk();
 
-        $this->followingRedirects()
-            ->post(route('employees.store'), $employee = Employee::factory()->raw())
-            ->assertSee($employee['name'])
-            ->assertSee($employee['birthdate'])
-            ->assertSee($employee['national_id']);
+        $employee = ['employeeInfo'   => Employee::factory()->raw(),
+                     'employeeStatus' => EmployeeStatus::factory()->raw(['employee_id' => '']),
+        ];
 
-        $this->assertDatabaseHas('employees', $employee);
+        $this->followingRedirects()
+            ->post(route('employees.store'), $employee)
+            ->assertSee($employee['employeeInfo']['name'])
+            ->assertSee($employee['employeeInfo']['birthdate'])
+            ->assertSee($employee['employeeInfo']['national_id'])
+            ->assertSee($employee['employeeStatus']['joined'])
+            ->assertSee($employee['employeeStatus']['wage']);
+
+        $this->assertDatabaseHas('employees', $employee['employeeInfo']);
+        $this->assertNotNull(Employee::find(1)->status());
     }
 
     public function test_user_can_update_employee(): void
