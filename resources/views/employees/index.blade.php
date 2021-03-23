@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
-        <div class="w-full overflow-x-auto border mt-6 rounded-lg">
+        <div class="w-full overflow-x-auto border dark:border-gray-700 mt-6 rounded-lg">
             <table class="w-full whitespace-no-wrap">
                 <thead>
                 <tr
