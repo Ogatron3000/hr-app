@@ -42,8 +42,7 @@ class ManageEmployeesTest extends TestCase
     public function test_user_can_view_employee_details(): void
     {
         $employee = Employee::factory()->create();
-        $status = EmployeeStatus::factory()->create(['employee_id' => $employee->id]);
-        $employee->addStatus($status->id);
+        $employee->addStatus(EmployeeStatus::factory()->raw(['employee_id' => $employee->id]));
 
         $this->signIn();
 

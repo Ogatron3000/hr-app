@@ -5,7 +5,6 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Employee extends Model
 {
@@ -28,12 +27,17 @@ class Employee extends Model
         return $this->belongsToMany(EmployeeStatus::class, 'employee_status_history')->withTimestamps();
     }
 
-    public function addStatus($newStatusId)
+    public function addStatus($newStatusAttributes)
     {
         if ($status = $this->status()) {
             $this->statusHistory()->updateExistingPivot($status->id, ['deleted_at' => Carbon::now()]);
         }
 
-        $this->statusHistory()->attach($newStatusId);
+        $newStatusAttributes['employee_id'] = $this->id;
+        $newStatus = EmployeeStatus::create($newStatusAttributes);
+
+        $this->statusHistory()->attach($newStatus->id);
+
+        return $newStatus;
     }
 }

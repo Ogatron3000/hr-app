@@ -33,12 +33,10 @@ class EmployeeTest extends TestCase
     {
         $employee = Employee::factory()->create();
 
-        $statusOne = EmployeeStatus::factory()->create();
-        $employee->addStatus($statusOne->id);
+        $statusOne = $employee->addStatus(EmployeeStatus::factory()->raw());
         $this->assertEquals($statusOne->id, $employee->status()->id);
 
-        $statusTwo = EmployeeStatus::factory()->create();
-        $employee->addStatus($statusTwo->id);
+        $statusTwo = $employee->addStatus(EmployeeStatus::factory()->raw());
         $this->assertEquals($statusTwo->id, $employee->status()->id);
     }
 }

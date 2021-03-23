@@ -29,11 +29,8 @@ class EmployeeController extends Controller
     public function store(StoreEmployeeRequest $request)
     {
         $employee = Employee::create($request->validated()['employeeInfo']);
-        $employeeStatusAttributes = $request->validated()['employeeStatus'];
-        $employeeStatusAttributes['employee_id'] = $employee->id;
-        $employeeStatus = EmployeeStatus::create($employeeStatusAttributes);
 
-        $employee->addStatus($employeeStatus->id);
+        $employee->addStatus($request->validated()['employeeStatus']);
 
         return redirect($employee->path());
     }
