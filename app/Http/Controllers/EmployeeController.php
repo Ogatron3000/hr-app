@@ -31,11 +31,11 @@ class EmployeeController extends Controller
 
     public function store(EmployeeRequest $request)
     {
-        $validated = $request->validated();
-        $offset =  array_search("joined", array_keys($validated), true);
-        $employee = Employee::create(array_slice($validated, 0, $offset));
+        $validated = $request->splitValidated();
 
-        $employee->addStatus(array_slice($request->validated(), $offset));
+        $employee = Employee::create($validated['employeeInfo']);
+
+        $employee->addStatus($validated['employeeStatus']);
 
         return redirect($employee->path());
     }
@@ -52,11 +52,11 @@ class EmployeeController extends Controller
 
     public function update(Employee $employee, EmployeeRequest $request)
     {
-        $validated = $request->validated();
-        $offset =  array_search("joined", array_keys($validated), true);
-        $employee->update(array_slice($request->validated(), 0, $offset));
+        $validated = $request->splitValidated();
 
-        $employee->addStatus(array_slice($request->validated(), $offset));
+        $employee->update($validated['employeeInfo']);
+
+        $employee->addStatus($validated['employeeStatus']);
 
         return redirect($employee->path());
     }

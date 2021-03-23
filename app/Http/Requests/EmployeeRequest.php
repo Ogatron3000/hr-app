@@ -42,4 +42,13 @@ class EmployeeRequest extends FormRequest
             'bank_account' => 'required'
         ];
     }
+
+    public function splitValidated(): array
+    {
+        $offset =  array_search("joined", array_keys($this->validated()), true);
+        $employeeInfo = array_slice($this->validated(), 0, $offset);
+        $employeeStatus = array_slice($this->validated(), $offset);
+
+        return compact('employeeInfo', 'employeeStatus');
+    }
 }

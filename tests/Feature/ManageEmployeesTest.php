@@ -61,6 +61,7 @@ class ManageEmployeesTest extends TestCase
 
     public function test_user_can_add_employee(): void
     {
+        $this->withoutExceptionHandling();
         $this->signIn();
 
         $this->get(route('employees.create'))->assertOk();
