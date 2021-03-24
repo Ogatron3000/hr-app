@@ -42,7 +42,7 @@ class ManageEmployeesTest extends TestCase
         $this->signIn();
 
         $employee = Employee::factory()->create();
-        $employee->addStatus(JobStatus::factory()->raw(['employee_id' => '']));
+        $employee->addJobStatus(JobStatus::factory()->raw(['employee_id' => '']));
 
         $this->get($employee->path())
             ->assertOk()
@@ -53,10 +53,10 @@ class ManageEmployeesTest extends TestCase
             ->assertSee($employee->email)
             ->assertSee($employee->phone)
             ->assertSee($employee->office)
-            ->assertSee($employee->status()->date)
-            ->assertSee($employee->status()->wage)
-            ->assertSee($employee->status()->bank->name)
-            ->assertSee($employee->status()->bank_account);
+            ->assertSee($employee->jobStatus()->date)
+            ->assertSee($employee->jobStatus()->wage)
+            ->assertSee($employee->jobStatus()->bank->name)
+            ->assertSee($employee->jobStatus()->bank_account);
     }
 
     public function test_user_can_add_employee(): void
@@ -76,7 +76,7 @@ class ManageEmployeesTest extends TestCase
             ->assertSee($employee['wage']);
 
         $this->assertNotNull(Employee::find(1));
-        $this->assertNotNull(Employee::find(1)->status());
+        $this->assertNotNull(Employee::find(1)->jobStatus());
     }
 
     public function test_user_can_update_employee(): void
@@ -84,7 +84,7 @@ class ManageEmployeesTest extends TestCase
         $this->signIn();
 
         $employee = Employee::factory()->create();
-        $employee->addStatus(JobStatus::factory()->raw(['employee_id' => '']));
+        $employee->addJobStatus(JobStatus::factory()->raw(['employee_id' => '']));
 
         $this->get($employee->path() . '/edit')->assertOk();
 
@@ -96,7 +96,7 @@ class ManageEmployeesTest extends TestCase
             ->assertSee($updated['wage']);
 
         $this->assertNotNull(Employee::find($employee->id));
-        $this->assertNotNull(Employee::find($employee->id)->status());
+        $this->assertNotNull(Employee::find($employee->id)->jobStatus());
     }
 
     public function test_user_can_delete_employee(): void
@@ -104,7 +104,7 @@ class ManageEmployeesTest extends TestCase
         $this->signIn();
 
         $employee = Employee::factory()->create();
-        $employee->addStatus($status = JobStatus::factory()->raw(['employee_id' => '']));
+        $employee->addJobStatus($status = JobStatus::factory()->raw(['employee_id' => '']));
 
         $this->followingRedirects()
             ->delete($employee->path())

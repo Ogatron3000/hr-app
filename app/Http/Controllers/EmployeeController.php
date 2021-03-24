@@ -22,7 +22,7 @@ class EmployeeController extends Controller
     public function show(Employee $employee)
     {
         // pre-load status
-        $employee['status'] = $employee->status();
+        $employee['status'] = $employee->jobStatus();
 
         return view('employees.show', compact('employee'));
     }
@@ -42,7 +42,7 @@ class EmployeeController extends Controller
 
         $employee = Employee::create($validated['employeeInfo']);
 
-        $employee->addStatus($validated['employeeStatus']);
+        $employee->addJobStatus($validated['employeeStatus']);
 
         return redirect($employee->path());
     }
@@ -54,7 +54,7 @@ class EmployeeController extends Controller
         $banks = Bank::all();
 
         // pre-load status
-        $employee['status'] = $employee->status();
+        $employee['status'] = $employee->jobStatus();
 
         return view('employees.edit', compact('employee', 'contractTypes', 'activeStatuses', 'banks'));
     }
@@ -65,7 +65,7 @@ class EmployeeController extends Controller
 
         $employee->update($validated['employeeInfo']);
 
-        $employee->addStatus($validated['employeeStatus']);
+        $employee->addJobStatus($validated['employeeStatus']);
 
         return redirect($employee->path());
     }

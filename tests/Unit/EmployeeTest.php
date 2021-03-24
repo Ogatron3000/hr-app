@@ -24,18 +24,18 @@ class EmployeeTest extends TestCase
         $employee = Employee::factory()->create();
         JobStatus::factory()->create(['employee_id' => $employee->id]);
 
-        $this->assertInstanceOf(JobStatus::class, $employee->statusHistory[0]);
-        $this->assertInstanceOf(JobStatus::class, $employee->status());
+        $this->assertInstanceOf(JobStatus::class, $employee->jobStatusHistory[0]);
+        $this->assertInstanceOf(JobStatus::class, $employee->jobStatus());
     }
 
     public function test_it_can_add_employee_status()
     {
         $employee = Employee::factory()->create();
 
-        $statusOne = $employee->addStatus(JobStatus::factory()->raw());
-        $this->assertEquals($statusOne->id, $employee->status()->id);
+        $statusOne = $employee->addJobStatus(JobStatus::factory()->raw());
+        $this->assertEquals($statusOne->id, $employee->jobStatus()->id);
 
-        $statusTwo = $employee->addStatus(JobStatus::factory()->raw());
-        $this->assertEquals($statusTwo->id, $employee->status()->id);
+        $statusTwo = $employee->addJobStatus(JobStatus::factory()->raw());
+        $this->assertEquals($statusTwo->id, $employee->jobStatus()->id);
     }
 }

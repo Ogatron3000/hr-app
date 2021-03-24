@@ -17,19 +17,19 @@ class Employee extends Model
         return '/employees/' . $this->id;
     }
 
-    public function status()
+    public function jobStatus()
     {
-        return $this->statusHistory()->whereNull('deleted_at')->first();
+        return $this->jobStatusHistory()->whereNull('deleted_at')->first();
     }
 
-    public function statusHistory()
+    public function jobStatusHistory()
     {
         return $this->hasMany(JobStatus::class);
     }
 
-    public function addStatus($newStatusAttributes)
+    public function addJobStatus($newStatusAttributes)
     {
-        if ($status = $this->status()) {
+        if ($status = $this->jobStatus()) {
             $status->delete();
         }
 
