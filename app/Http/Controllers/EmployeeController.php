@@ -10,6 +10,7 @@ use App\Models\Department;
 use App\Models\Employee;
 use App\Models\JobStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
@@ -43,6 +44,10 @@ class EmployeeController extends Controller
     {
         $validated = $request->splitValidated();
 
+        if (array_key_exists('avatar', $validated['employeeInfo'])) {
+            $validated['employeeInfo']['avatar'] = $validated['employeeInfo']['avatar']->store('avatars');
+        }
+
         $employee = Employee::create($validated['employeeInfo']);
         $employee->addJobStatus($validated['jobStatus']);
         $employee->addJobDescription($validated['jobDescription']);
@@ -67,6 +72,11 @@ class EmployeeController extends Controller
     public function update(Employee $employee, EmployeeRequest $request)
     {
         $validated = $request->splitValidated();
+
+        if (array_key_exists('avatar', $validated['employeeInfo'])) {
+            Storage::delete($employee->avatar);
+            $validated['employeeInfo']['avatar'] = $validated['employeeInfo']['avatar']->store('avatars');
+        }
 
         $employee->update($validated['employeeInfo']);
         $employee->addJobStatus($validated['jobStatus']);

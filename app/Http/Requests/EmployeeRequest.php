@@ -26,7 +26,7 @@ class EmployeeRequest extends FormRequest
         return [
             // Employee Info
             'name' => 'required',
-            'photo' => 'nullable',
+            'avatar' => 'image|nullable',
             'birthdate' => 'required|date',
             'national_id' => 'required',
             'address' => 'required',

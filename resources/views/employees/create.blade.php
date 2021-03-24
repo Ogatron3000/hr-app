@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-auth-validation-errors class="mb-4" :errors="$errors" />
     <div class="my-8">
-        <form method="POST" action="{{ route('employees.store') }}">
+        <form method="POST" action="{{ route('employees.store') }}" enctype="multipart/form-data">
             @csrf
 
             <div class="flex">
@@ -30,6 +30,12 @@
                         <x-label for="address" :value="__('Address')" />
 
                         <x-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required />
+                    </div>
+
+                    <div class="mt-4">
+                        <x-label for="avatar" :value="__('Avatar')" />
+
+                        <x-input id="avatar" class="block mt-1 w-full" type="file" name="avatar" />
                     </div>
 
                     <div class="mt-4">

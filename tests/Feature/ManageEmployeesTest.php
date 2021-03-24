@@ -8,6 +8,8 @@ use App\Models\JobStatus;
 use Database\Factories\EmployeeFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class ManageEmployeesTest extends TestCase
@@ -70,13 +72,13 @@ class ManageEmployeesTest extends TestCase
         $this->withoutExceptionHandling();
         $this->signIn();
 
-        $this->get(route('employees.create'))->assertOk();
-
         $employee = array_merge(
             Employee::factory()->raw(),
             JobStatus::factory()->raw(['employee_id' => '']),
             JobDescription::factory()->raw(['employee_id' => ''])
         );
+
+        $this->get(route('employees.create'))->assertOk();
 
         $this->followingRedirects()
             ->post(route('employees.store'), $employee)
@@ -90,6 +92,7 @@ class ManageEmployeesTest extends TestCase
         $this->assertNotNull(Employee::find(1));
         $this->assertNotNull(Employee::find(1)->jobStatus());
         $this->assertNotNull(Employee::find(1)->jobDescription());
+        Storage::disk('local')->assertExists('avatars/' . $employee['avatar']->hashName());
     }
 
     public function test_user_can_update_employee(): void
@@ -100,13 +103,13 @@ class ManageEmployeesTest extends TestCase
         $employee->addJobStatus(JobStatus::factory()->raw(['employee_id' => '']));
         $employee->addJobDescription(JobDescription::factory()->raw(['employee_id' => '']));
 
-        $this->get($employee->path() . '/edit')->assertOk();
-
         $updated = array_merge(
             Employee::factory()->raw(),
             JobStatus::factory()->raw(['employee_id' => '']),
             JobDescription::factory()->raw(['employee_id' => ''])
         );
+
+        $this->get($employee->path() . '/edit')->assertOk();
 
         $this->followingRedirects()
             ->patch($employee->path(), $updated)
@@ -114,9 +117,8 @@ class ManageEmployeesTest extends TestCase
             ->assertSee($updated['wage'])
             ->assertSee($updated['job_name']);
 
-        $this->assertNotNull(Employee::find($employee->id));
-        $this->assertNotNull(Employee::find($employee->id)->jobStatus());
-        $this->assertNotNull(Employee::find($employee->id)->jobDescription());
+        Storage::disk('local')->assertExists('avatars/' . $updated['avatar']->hashName());
+        Storage::disk('local')->assertMissing('avatars/' . $employee['avatar']->hashName());
     }
 
     public function test_user_can_delete_employee(): void
@@ -136,5 +138,6 @@ class ManageEmployeesTest extends TestCase
         $this->assertDatabaseCount('employees', 0);
         $this->assertDatabaseCount('job_statuses', 0);
         $this->assertDatabaseCount('job_descriptions', 0);
+        Storage::disk('local')->assertMissing('avatars/' . $employee['avatar']->hashName());
     }
 }

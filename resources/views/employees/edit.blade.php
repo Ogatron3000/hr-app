@@ -3,7 +3,7 @@
     <h2 class="p-8 text-center text-xl">Edit Employee</h2>
 
     <x-auth-validation-errors class="mb-4" :errors="$errors" />
-    <form method="POST" action="{{ $employee->path() }}">
+    <form method="POST" action="{{ $employee->path() }}" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
         <div class="flex">
@@ -32,6 +32,24 @@
                     <x-label for="address" :value="__('Address')" />
 
                     <x-input id="address" class="block mt-1 w-full" type="text" name="address" :value="$employee->address" required />
+                </div>
+
+                <div class="mt-4">
+                    <x-label for="avatar" :value="__('Avatar')" />
+
+                    <div class="flex items-center">
+                        <x-input id="avatar" class="block mt-1 w-full" type="file" name="avatar" />
+
+                        {{-- Avatar --}}
+                        <div class="relative hidden w-10 h-10 ml-3 rounded-full md:block">
+                            <img class="object-cover w-full h-full rounded-full"
+                                src="{{ $employee->avatar }}"
+                                alt=""
+                                loading="lazy"/>
+                            <div class="absolute inset-0 rounded-full shadow-inner"
+                                aria-hidden="true"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mt-4">
@@ -128,7 +146,7 @@
                 <div>
                     <x-label for="job_name" :value="__('Job name')" />
 
-                    <x-input id="job_name" class="block mt-1 w-full" type="text" name="job_name" :value="$employee->jobStatus->job_name" required />
+                    <x-input id="job_name" class="block mt-1 w-full" type="text" name="job_name" :value="$employee->jobDescription->job_name" required />
                 </div>
 
                 <div class="mt-4">
@@ -149,7 +167,7 @@
                         name="description"
                         class="block w-full mt-1 text-sm rounded border border-gray-300 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                         rows="3"
-                    >{{ $employee->description }}</textarea>
+                    >{{ $employee->jobDescription->description }}</textarea>
                 </div>
 
                 <div class="mt-4">
@@ -160,7 +178,7 @@
                         name="skills"
                         class="block w-full mt-1 text-sm rounded border border-gray-300 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                         rows="3"
-                    >{{ $employee->skills }}</textarea>
+                    >{{ $employee->jobDescription->skills }}</textarea>
                 </div>
             </div>
         </div>
