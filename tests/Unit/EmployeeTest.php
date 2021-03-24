@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Employee;
-use App\Models\EmployeeStatus;
+use App\Models\JobStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -22,20 +22,20 @@ class EmployeeTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $employee = Employee::factory()->create();
-        EmployeeStatus::factory()->create(['employee_id' => $employee->id]);
+        JobStatus::factory()->create(['employee_id' => $employee->id]);
 
-        $this->assertInstanceOf(EmployeeStatus::class, $employee->statusHistory[0]);
-        $this->assertInstanceOf(EmployeeStatus::class, $employee->status());
+        $this->assertInstanceOf(JobStatus::class, $employee->statusHistory[0]);
+        $this->assertInstanceOf(JobStatus::class, $employee->status());
     }
 
     public function test_it_can_add_employee_status()
     {
         $employee = Employee::factory()->create();
 
-        $statusOne = $employee->addStatus(EmployeeStatus::factory()->raw());
+        $statusOne = $employee->addStatus(JobStatus::factory()->raw());
         $this->assertEquals($statusOne->id, $employee->status()->id);
 
-        $statusTwo = $employee->addStatus(EmployeeStatus::factory()->raw());
+        $statusTwo = $employee->addStatus(JobStatus::factory()->raw());
         $this->assertEquals($statusTwo->id, $employee->status()->id);
     }
 }

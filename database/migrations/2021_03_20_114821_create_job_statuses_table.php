@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmployeeStatusesTable extends Migration
+class CreateJobStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateEmployeeStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('employee_statuses', function (Blueprint $table) {
+        Schema::create('job_statuses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->constrained()->onDelete('cascade');
             $table->foreignId('contract_type_id')->constrained();

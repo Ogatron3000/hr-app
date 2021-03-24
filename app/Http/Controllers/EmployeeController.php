@@ -7,7 +7,7 @@ use App\Models\ActiveStatus;
 use App\Models\Bank;
 use App\Models\ContractType;
 use App\Models\Employee;
-use App\Models\EmployeeStatus;
+use App\Models\JobStatus;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller

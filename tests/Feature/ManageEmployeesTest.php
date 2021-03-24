@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Employee;
-use App\Models\EmployeeStatus;
+use App\Models\JobStatus;
 use Database\Factories\EmployeeFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -42,7 +42,7 @@ class ManageEmployeesTest extends TestCase
         $this->signIn();
 
         $employee = Employee::factory()->create();
-        $employee->addStatus(EmployeeStatus::factory()->raw(['employee_id' => '']));
+        $employee->addStatus(JobStatus::factory()->raw(['employee_id' => '']));
 
         $this->get($employee->path())
             ->assertOk()
@@ -66,7 +66,7 @@ class ManageEmployeesTest extends TestCase
 
         $this->get(route('employees.create'))->assertOk();
 
-        $employee = array_merge(Employee::factory()->raw(), EmployeeStatus::factory()->raw(['employee_id' => '']));
+        $employee = array_merge(Employee::factory()->raw(), JobStatus::factory()->raw(['employee_id' => '']));
 
         $this->followingRedirects()
             ->post(route('employees.store'), $employee)
@@ -84,11 +84,11 @@ class ManageEmployeesTest extends TestCase
         $this->signIn();
 
         $employee = Employee::factory()->create();
-        $employee->addStatus(EmployeeStatus::factory()->raw(['employee_id' => '']));
+        $employee->addStatus(JobStatus::factory()->raw(['employee_id' => '']));
 
         $this->get($employee->path() . '/edit')->assertOk();
 
-        $updated = array_merge(Employee::factory()->raw(), EmployeeStatus::factory()->raw(['employee_id' => '']));
+        $updated = array_merge(Employee::factory()->raw(), JobStatus::factory()->raw(['employee_id' => '']));
 
         $this->followingRedirects()
             ->patch($employee->path(), $updated)
@@ -104,7 +104,7 @@ class ManageEmployeesTest extends TestCase
         $this->signIn();
 
         $employee = Employee::factory()->create();
-        $employee->addStatus($status = EmployeeStatus::factory()->raw(['employee_id' => '']));
+        $employee->addStatus($status = JobStatus::factory()->raw(['employee_id' => '']));
 
         $this->followingRedirects()
             ->delete($employee->path())
@@ -112,6 +112,6 @@ class ManageEmployeesTest extends TestCase
             ->assertDontSee($employee->wage);
 
         $this->assertDatabaseCount('employees', 0);
-        $this->assertDatabaseCount('employee_statuses', 0);
+        $this->assertDatabaseCount('job_statuses', 0);
     }
 }

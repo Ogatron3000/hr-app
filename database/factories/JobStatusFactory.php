@@ -4,17 +4,17 @@ namespace Database\Factories;
 
 use App\Models\ActiveStatus;
 use App\Models\ContractType;
-use App\Models\EmployeeStatus;
+use App\Models\JobStatus;
 use App\Models\Bank;use App\Models\Employee;use Illuminate\Database\Eloquent\Factories\Factory;
 
-class EmployeeStatusFactory extends Factory
+class JobStatusFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = EmployeeStatus::class;
+    protected $model = JobStatus::class;
 
     /**
      * Define the model's default state.

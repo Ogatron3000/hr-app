@@ -24,7 +24,7 @@ class Employee extends Model
 
     public function statusHistory()
     {
-        return $this->hasMany(EmployeeStatus::class);
+        return $this->hasMany(JobStatus::class);
     }
 
     public function addStatus($newStatusAttributes)
@@ -35,7 +35,7 @@ class Employee extends Model
 
         $newStatusAttributes['employee_id'] = $this->id;
 
-        $newStatus = EmployeeStatus::create($newStatusAttributes);
+        $newStatus = JobStatus::create($newStatusAttributes);
 
         return $newStatus;
     }

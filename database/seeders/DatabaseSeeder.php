@@ -6,7 +6,7 @@ use App\Models\ActiveStatus;
 use App\Models\Bank;
 use App\Models\ContractType;
 use App\Models\Employee;
-use App\Models\EmployeeStatus;
+use App\Models\JobStatus;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create(['email' => 'admin@admin.com']);
 
-        EmployeeStatus::factory(20)->create();
+        JobStatus::factory(20)->create();
     }
 }
