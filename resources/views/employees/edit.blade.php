@@ -69,14 +69,16 @@
         </div>
 
         <div class="flex mt-8">
-            <div class="w-1/2 px-4 py-3 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-400">
+
+            {{-- Job Status --}}
+            <div class="w-1/2 px-4 py-3 mr-8 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-400">
 
                 <div>
                     <x-label for="contract_type_id" :value="__('Contract type')" />
 
                     <select id="contract_type_id" name="contract_type_id" class="block w-full mt-1 text-sm border border-gray-300 rounded dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                         @foreach($contractTypes as $contractType)
-                            <option {{ $contractType === $employee->status->contractType ? 'selected' : '' }} value={{ $contractType->id }}>{{ $contractType->name }}</option>
+                            <option {{ $contractType === $employee->jobStatus->contractType ? 'selected' : '' }} value={{ $contractType->id }}>{{ $contractType->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -86,7 +88,7 @@
 
                     <select id="active_status_id" name="active_status_id" class="block w-full mt-1 text-sm border border-gray-300 rounded dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                         @foreach($activeStatuses as $activeStatus)
-                            <option {{ $activeStatus === $employee->status->activeStatus ? 'selected' : '' }} value={{ $activeStatus->id }}>{{ $activeStatus->name }}</option>
+                            <option {{ $activeStatus === $employee->jobStatus->activeStatus ? 'selected' : '' }} value={{ $activeStatus->id }}>{{ $activeStatus->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -94,13 +96,13 @@
                 <div class="mt-4">
                     <x-label for="joined" :value="__('Joined')" />
 
-                    <x-input id="joined" class="block mt-1 w-full" type="date" name="joined" :value="$employee->status->joined" required />
+                    <x-input id="joined" class="block mt-1 w-full" type="date" name="joined" :value="$employee->jobStatus->joined" required />
                 </div>
 
                 <div class="mt-4">
                     <x-label for="wage" :value="__('Wage')" />
 
-                    <x-input id="wage" class="block mt-1 w-full" type="text" name="wage" :value="$employee->status->wage" required />
+                    <x-input id="wage" class="block mt-1 w-full" type="text" name="wage" :value="$employee->jobStatus->wage" required />
                 </div>
 
                 <div class="mt-4">
@@ -108,7 +110,7 @@
 
                     <select id="bank_id" name="bank_id" class="block w-full mt-1 text-sm border border-gray-300 rounded dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                         @foreach($banks as $bank)
-                            <option {{ $bank === $employee->status->bank ?? 'selected' }} value="{{ $bank->id }}">{{ $bank->name }}</option>
+                            <option {{ $bank === $employee->jobStatus->bank ?? 'selected' }} value="{{ $bank->id }}">{{ $bank->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -116,12 +118,52 @@
                 <div class="mt-4">
                     <x-label for="bank_account" :value="__('Bank account')" />
 
-                    <x-input id="bank_account" class="block mt-1 w-full" type="dropdown" name="bank_account" :value="$employee->status->bank_account" required />
+                    <x-input id="bank_account" class="block mt-1 w-full" type="dropdown" name="bank_account" :value="$employee->jobStatus->bank_account" required />
+                </div>
+            </div>
+
+            {{-- Job Description --}}
+            <div class="w-1/2 px-4 py-3 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-400">
+
+                <div>
+                    <x-label for="job_name" :value="__('Job name')" />
+
+                    <x-input id="job_name" class="block mt-1 w-full" type="text" name="job_name" :value="$employee->jobStatus->job_name" required />
+                </div>
+
+                <div class="mt-4">
+                    <x-label for="department_id" :value="__('Department')" />
+
+                    <select id="department_id" name="department_id" class="block w-full mt-1 text-sm border border-gray-300 rounded dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                        @foreach($departments as $department)
+                            <option {{ $department === $employee->jobDescription->department ? 'selected' : '' }} value={{ $department->id }}>{{ $department->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="mt-4">
+                    <x-label for="description" :value="__('Description')" />
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        class="block w-full mt-1 text-sm rounded border border-gray-300 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                        rows="3"
+                    >{{ $employee->description }}</textarea>
+                </div>
+
+                <div class="mt-4">
+                    <x-label for="skills" :value="__('Skills')" />
+
+                    <textarea
+                        id="skills"
+                        name="skills"
+                        class="block w-full mt-1 text-sm rounded border border-gray-300 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                        rows="3"
+                    >{{ $employee->skills }}</textarea>
                 </div>
             </div>
         </div>
-
-
 
         <div class="flex justify-end">
             <a href="{{ $employee->path() . '/edit' }}">

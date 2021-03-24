@@ -9,7 +9,7 @@ use App\Models\JobStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class EmployeeStatusTest extends TestCase
+class JobStatusTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -21,7 +21,7 @@ class EmployeeStatusTest extends TestCase
         $this->assertInstanceOf(ContractType::class, $status->contractType);
     }
 
-    public function test_it_belongs_to_a_active_status()
+    public function test_it_belongs_to_an_active_status()
     {
         $activeStatus = ActiveStatus::factory()->create();
         $status = JobStatus::factory()->create(['active_status_id' => $activeStatus->id]);

@@ -67,9 +67,11 @@
             </div>
 
             <div class="flex mt-8">
-                <div class="w-1/2 px-4 py-3 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-400">
 
-                    <div class="mt-4">
+                {{-- Job Status --}}
+                <div class="w-1/2 px-4 py-3 mr-8 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-400">
+
+                    <div>
                         <x-label for="contract_type_id" :value="__('Contract type')" />
 
                         <select id="contract_type_id" name="contract_type_id" class="block w-full mt-1 text-sm border border-gray-300 rounded dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
@@ -115,6 +117,48 @@
                         <x-label for="bank_account" :value="__('Bank account')" />
 
                         <x-input id="bank_account" class="block mt-1 w-full" type="dropdown" name="bank_account" :value="old('bank_account')" required />
+                    </div>
+                </div>
+
+                {{-- Job Description --}}
+                <div class="w-1/2 px-4 py-3 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-400">
+
+                    <div>
+                        <x-label for="job_name" :value="__('Job name')" />
+
+                        <x-input id="job_name" class="block mt-1 w-full" type="text" name="job_name" :value="old('job_name')" required />
+                    </div>
+
+                    <div class="mt-4">
+                        <x-label for="department_id" :value="__('Department')" />
+
+                        <select id="department_id" name="department_id" class="block w-full mt-1 text-sm border border-gray-300 rounded dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                            @foreach($departments as $department)
+                                <option {{ $department->id == old('department_id') ? 'selected' : '' }} value={{ $department->id }}>{{ $department->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mt-4">
+                        <x-label for="description" :value="__('Description')" />
+
+                        <textarea
+                            id="description"
+                            name="description"
+                            class="block w-full mt-1 text-sm rounded border border-gray-300 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                            rows="3"
+                        >{{ old('description') }}</textarea>
+                    </div>
+
+                    <div class="mt-4">
+                        <x-label for="skills" :value="__('Skills')" />
+
+                        <textarea
+                            id="skills"
+                            name="skills"
+                            class="block w-full mt-1 text-sm rounded border border-gray-300 dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                            rows="3"
+                        >{{ old('skills') }}</textarea>
                     </div>
                 </div>
             </div>

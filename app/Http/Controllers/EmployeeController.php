@@ -6,6 +6,7 @@ use App\Http\Requests\EmployeeRequest;
 use App\Models\ActiveStatus;
 use App\Models\Bank;
 use App\Models\ContractType;
+use App\Models\Department;
 use App\Models\Employee;
 use App\Models\JobStatus;
 use Illuminate\Http\Request;
@@ -21,8 +22,9 @@ class EmployeeController extends Controller
 
     public function show(Employee $employee)
     {
-        // pre-load status
-        $employee['status'] = $employee->jobStatus();
+        // pre-load status and description
+        $employee['jobStatus'] = $employee->jobStatus();
+        $employee['jobDescription'] = $employee->jobDescription();
 
         return view('employees.show', compact('employee'));
     }
@@ -32,8 +34,9 @@ class EmployeeController extends Controller
         $contractTypes = ContractType::all();
         $activeStatuses = ActiveStatus::all();
         $banks = Bank::all();
+        $departments = Department::all();
 
-        return view('employees.create', compact('contractTypes', 'activeStatuses', 'banks'));
+        return view('employees.create', compact('contractTypes', 'activeStatuses', 'banks', 'departments'));
     }
 
     public function store(EmployeeRequest $request)
@@ -41,8 +44,8 @@ class EmployeeController extends Controller
         $validated = $request->splitValidated();
 
         $employee = Employee::create($validated['employeeInfo']);
-
-        $employee->addJobStatus($validated['employeeStatus']);
+        $employee->addJobStatus($validated['jobStatus']);
+        $employee->addJobDescription($validated['jobDescription']);
 
         return redirect($employee->path());
     }
@@ -52,11 +55,13 @@ class EmployeeController extends Controller
         $contractTypes = ContractType::all();
         $activeStatuses = ActiveStatus::all();
         $banks = Bank::all();
+        $departments = Department::all();
 
-        // pre-load status
-        $employee['status'] = $employee->jobStatus();
+        // pre-load status and description
+        $employee['jobStatus'] = $employee->jobStatus();
+        $employee['jobDescription'] = $employee->jobDescription();
 
-        return view('employees.edit', compact('employee', 'contractTypes', 'activeStatuses', 'banks'));
+        return view('employees.edit', compact('employee', 'contractTypes', 'activeStatuses', 'banks', 'departments'));
     }
 
     public function update(Employee $employee, EmployeeRequest $request)
@@ -64,8 +69,8 @@ class EmployeeController extends Controller
         $validated = $request->splitValidated();
 
         $employee->update($validated['employeeInfo']);
-
-        $employee->addJobStatus($validated['employeeStatus']);
+        $employee->addJobStatus($validated['jobStatus']);
+        $employee->addJobDescription($validated['jobDescription']);
 
         return redirect($employee->path());
     }

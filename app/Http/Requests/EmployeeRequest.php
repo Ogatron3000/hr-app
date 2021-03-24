@@ -35,22 +35,31 @@ class EmployeeRequest extends FormRequest
             'office' => 'required',
             'notes' => 'nullable',
 
-            // Employee Status
+            // Job Status
             'contract_type_id' => 'required',
             'active_status_id' => 'required',
             'joined' => 'required|date',
             'wage' => 'required',
             'bank_id' => 'required',
-            'bank_account' => 'required'
+            'bank_account' => 'required',
+
+            // Job Description
+            'job_name' => 'required',
+            'department_id' => 'required',
+            'description' => 'required',
+            'skills' => 'required',
         ];
     }
 
     public function splitValidated(): array
     {
-        $offset =  array_search("contract_type_id", array_keys($this->validated()), true);
-        $employeeInfo = array_slice($this->validated(), 0, $offset);
-        $employeeStatus = array_slice($this->validated(), $offset);
+        $offsetOne =  array_search("contract_type_id", array_keys($this->validated()), true);
+        $offsetTwo =  array_search("job_name", array_keys($this->validated()), true);
 
-        return compact('employeeInfo', 'employeeStatus');
+        $employeeInfo = array_slice($this->validated(), 0, $offsetOne);
+        $jobStatus = array_slice($this->validated(), $offsetOne, $offsetTwo - $offsetOne);
+        $jobDescription = array_slice($this->validated(), $offsetTwo);
+
+        return compact('employeeInfo', 'jobStatus', 'jobDescription');
     }
 }

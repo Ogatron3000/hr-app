@@ -35,8 +35,27 @@ class Employee extends Model
 
         $newStatusAttributes['employee_id'] = $this->id;
 
-        $newStatus = JobStatus::create($newStatusAttributes);
+        return JobStatus::create($newStatusAttributes);
+    }
 
-        return $newStatus;
+    public function jobDescription()
+    {
+        return $this->jobDescriptionHistory()->whereNull('deleted_at')->first();
+    }
+
+    public function jobDescriptionHistory()
+    {
+        return $this->hasMany(JobDescription::class);
+    }
+
+    public function addJobDescription($newDescriptionAttributes)
+    {
+        if ($desc = $this->jobDescription()) {
+            $desc->delete();
+        }
+
+        $newDescriptionAttributes['employee_id'] = $this->id;
+
+        return JobDescription::create($newDescriptionAttributes);
     }
 }
