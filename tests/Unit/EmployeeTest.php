@@ -6,6 +6,7 @@ use App\Models\Document;
 use App\Models\Employee;
 use App\Models\JobDescription;
 use App\Models\JobStatus;
+use Facades\Tests\Setup\EmployeeFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
@@ -23,8 +24,7 @@ class EmployeeTest extends TestCase
 
     public function test_it_has_many_job_statuses(): void
     {
-        $employee = Employee::factory()->create();
-        JobStatus::factory()->create(['employee_id' => $employee->id]);
+        $employee = EmployeeFactory::withJobStatus()->create();
 
         $this->assertInstanceOf(JobStatus::class, $employee->jobStatusHistory[0]);
         $this->assertInstanceOf(JobStatus::class, $employee->jobStatus());
@@ -43,8 +43,7 @@ class EmployeeTest extends TestCase
 
     public function test_it_has_many_job_descriptions(): void
     {
-        $employee = Employee::factory()->create();
-        JobDescription::factory()->create(['employee_id' => $employee->id]);
+        $employee = EmployeeFactory::withJobDescription()->create();
 
         $this->assertInstanceOf(JobDescription::class, $employee->jobDescriptionHistory[0]);
         $this->assertInstanceOf(JobDescription::class, $employee->jobDescription());
@@ -63,8 +62,7 @@ class EmployeeTest extends TestCase
 
     public function test_it_has_many_documents()
     {
-        $employee = Employee::factory()->create();
-        Document::factory()->create(['employee_id' => $employee->id]);
+        $employee = EmployeeFactory::withDocument()->create();
 
         $this->assertInstanceOf(Document::class, $employee->documents[0]);
     }

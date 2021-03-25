@@ -18,7 +18,7 @@ class ManageDocumentsTest extends TestCase
     {
         $this->signIn();
 
-        $employee = EmployeeFactory::withJobStatus()->withJobDescription()->withDocument()->create();
+        $employee = EmployeeFactory::withDocument()->create();
 
         $this->get($employee->path() . '/documents')
             ->assertOk()
@@ -31,11 +31,11 @@ class ManageDocumentsTest extends TestCase
     {
         $this->signIn();
 
-        $employee = EmployeeFactory::withJobStatus()->withJobDescription()->withDocument()->create();
+        $employee = EmployeeFactory::withDocument()->create();
 
         $fileName = explode('/', $employee->documents[0]->file)[1];
 
-        $response = $this->get($employee->path() . '/documents/' . $employee->documents[0]->id)->assertOk();
+        $response = $this->get($employee->documents[0]->path())->assertOk();
         $this->assertEquals("attachment; filename={$fileName}", $response->headers->get('content-disposition'));
     }
 
@@ -43,7 +43,7 @@ class ManageDocumentsTest extends TestCase
     {
         $this->signIn();
 
-        $employee = EmployeeFactory::withJobStatus()->withJobDescription()->create();
+        $employee = EmployeeFactory::create();
 
         $document = Document::factory()->raw();
 
@@ -58,12 +58,12 @@ class ManageDocumentsTest extends TestCase
     {
         $this->signIn();
 
-        $employee = EmployeeFactory::withJobStatus()->withJobDescription()->withDocument()->create();
+        $employee = EmployeeFactory::withDocument()->create();
 
         $document = $employee->documents[0];
 
         $this->followingRedirects()
-            ->delete($employee->path() . '/documents/' . $document->id)
+            ->delete($document->path())
             ->assertDontSee($document->name)
             ->assertDontSee($document->date)
             ->assertDontSee($document->expiry);

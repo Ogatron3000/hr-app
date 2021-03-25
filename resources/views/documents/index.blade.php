@@ -45,7 +45,7 @@
                         </td>
                         <td class="px-4 py-3 text-sm">
                             <div class="flex items-center">
-                                <a href="{{ $employee->path() . '/documents/' . $document->id }}">
+                                <a href="{{ $document->path() }}">
                                     <button
                                         class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Download"
@@ -56,7 +56,7 @@
                                     </button>
                                 </a>
                                 <div>
-                                    <form method="POST" action="{{ $employee->path() . '/documents/' . $document->id }}">
+                                    <form method="POST" action="{{ $document->path() }}">
                                         @method('DELETE')
                                         @csrf
                                         <button
