@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Document;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
+
+    public function index(Employee $employee)
+    {
+        return view('documents.index', compact('employee'));
+    }
+
+    public function download(Employee $employee, Document $document)
+    {
+        return Storage::download($document->file);
+    }
+
     public function create(Employee $employee)
     {
         return view('documents.create', compact('employee'));
@@ -18,7 +30,7 @@ class DocumentController extends Controller
         $validated = request()->validate([
             'name' => 'required',
             'date' => 'required|date',
-            'expire' => 'required|date',
+            'expiry' => 'required|date',
             'file' => 'required|file|mimes:pdf'
         ]);
 

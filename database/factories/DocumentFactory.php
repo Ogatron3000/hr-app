@@ -25,7 +25,7 @@ class DocumentFactory extends Factory
         return [
             'name' => $this->faker->word,
             'date' => $this->faker->date(),
-            'expire' => $this->faker->date(),
+            'expiry' => $this->faker->date(),
             'file' => UploadedFile::fake()->create('document.pdf')
         ];
     }

@@ -4,26 +4,40 @@
 namespace Tests\Setup;
 
 
+use App\Models\Document;
 use App\Models\Employee;
 use App\Models\JobDescription;
 use App\Models\JobStatus;
+use Illuminate\Http\UploadedFile;
 
 class EmployeeFactory
 {
-    protected array $jobStatusAttributes;
-    protected array $jobDescriptionAttributes;
+
     protected Employee $employee;
 
-    public function withJobStatus(): EmployeeFactory
+    protected int $jobStatuses = 0;
+
+    protected int $jobDescriptions = 0;
+
+    protected int $documents = 0;
+
+    public function withJobStatus(int $n = 1): EmployeeFactory
     {
-        $this->jobStatusAttributes = JobStatus::factory()->raw(['employee_id' => '']);
+        $this->jobStatuses = $n;
 
         return $this;
     }
 
-    public function withJobDescription(): EmployeeFactory
+    public function withJobDescription(int $n = 1): EmployeeFactory
     {
-        $this->jobDescriptionAttributes = JobDescription::factory()->raw(['employee_id' => '']);
+        $this->jobDescriptions = $n;
+
+        return $this;
+    }
+
+    public function withDocument(int $n = 1): EmployeeFactory
+    {
+        $this->documents = $n;
 
         return $this;
     }
@@ -31,8 +45,14 @@ class EmployeeFactory
     public function create(): Employee
     {
         $employee = Employee::factory()->create();
-        $employee->addJobStatus($this->jobStatusAttributes);
-        $employee->addJobDescription($this->jobDescriptionAttributes);
+
+        JobStatus::factory($this->jobStatuses)->create(['employee_id' => $employee->id]);
+
+        JobDescription::factory($this->jobDescriptions)->create(['employee_id' => $employee->id]);
+
+        for ($i = 0; $i < $this->documents; $i++) {
+            $employee->addDocument(Document::factory()->raw(['employee_id' => null]));
+        }
 
         return $employee;
     }

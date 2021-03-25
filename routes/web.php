@@ -34,6 +34,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::patch('/employees/{employee}', [EmployeeController::class, 'update'])->name('employees.update');
     Route::delete('/employees/{employee}', [EmployeeController::class, 'delete'])->name('employees.delete');
 
+    Route::get('/employees/{employee}/documents', [DocumentController::class, 'index'])->name('documents.index');
     Route::get('/employees/{employee}/documents/create', [DocumentController::class, 'create'])->name('documents.create');
+    Route::get('/employees/{employee}/documents/{document}', [DocumentController::class, 'download'])->name('documents.download');
     Route::post('/employees/{employee}/documents', [DocumentController::class, 'store'])->name('documents.store');
 });

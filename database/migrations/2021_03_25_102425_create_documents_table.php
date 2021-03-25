@@ -18,7 +18,7 @@ class CreateDocumentsTable extends Migration
             $table->foreignId('employee_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->date('date');
-            $table->date('expire');
+            $table->date('expiry');
             $table->string('file');
             $table->timestamps();
         });

@@ -14,9 +14,33 @@ class ManageDocumentsTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_user_can_see_all_employee_documents()
+    {
+        $this->signIn();
+
+        $employee = EmployeeFactory::withJobStatus()->withJobDescription()->withDocument()->create();
+
+        $this->get($employee->path() . '/documents')
+            ->assertOk()
+            ->assertSee($employee->documents[0]->name)
+            ->assertSee($employee->documents[0]->date)
+            ->assertSee($employee->documents[0]->expiry);
+    }
+
+    public function test_user_can_download_employee_document()
+    {
+        $this->signIn();
+
+        $employee = EmployeeFactory::withJobStatus()->withJobDescription()->withDocument()->create();
+
+        $fileName = explode('/', $employee->documents[0]->file)[1];
+
+        $response = $this->get($employee->path() . '/documents/' . $employee->documents[0]->id)->assertOk();
+        $this->assertEquals("attachment; filename={$fileName}", $response->headers->get('content-disposition'));
+    }
+
     public function test_user_can_create_documents()
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
 
         $employee = EmployeeFactory::withJobStatus()->withJobDescription()->create();

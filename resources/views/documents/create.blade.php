@@ -19,9 +19,9 @@
             </div>
 
             <div class="mt-4">
-                <x-label for="expire" :value="__('Expiry date')" />
+                <x-label for="expiry" :value="__('Expiry')" />
 
-                <x-input id="expire" class="block mt-1 w-full" type="date" name="expire" :value="old('expire')" required />
+                <x-input id="expiry" class="block mt-1 w-full" type="date" name="expiry" :value="old('expiry')" required />
             </div>
 
             <div class="mt-4">
