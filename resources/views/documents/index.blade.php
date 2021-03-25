@@ -1,6 +1,23 @@
 <x-app-layout>
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
-        <div class="w-full overflow-x-auto border dark:border-gray-700 mt-6 rounded-lg">
+
+        <div class="flex items-center py-8">
+            <p class="italic">Viewing documents for <span class="not-italic font-semibold">{{ $employee->name }}</span></p>
+            <div>
+                <a href="{{ $employee->path() . '/documents/create' }}">
+                    <button
+                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        aria-label="Documents"
+                    >
+                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V8z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div class="w-full overflow-x-auto border dark:border-gray-700 rounded-lg">
             <table class="w-full whitespace-no-wrap">
                 <thead>
                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
@@ -39,7 +56,7 @@
                                     </button>
                                 </a>
                                 <div>
-                                    <form method="POST" action="{{ $employee->path() }}">
+                                    <form method="POST" action="{{ $employee->path() . '/documents/' . $document->id }}">
                                         @method('DELETE')
                                         @csrf
                                         <button

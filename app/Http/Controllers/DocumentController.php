@@ -42,6 +42,7 @@ class DocumentController extends Controller
     public function delete(Employee $employee, Document $document)
     {
         Storage::delete($document->file);
+
         $document->delete();
 
         return redirect($employee->path() . '/documents');
