@@ -10,6 +10,7 @@ use App\Models\Department;
 use App\Models\Employee;
 use App\Models\JobStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
@@ -48,9 +49,13 @@ class EmployeeController extends Controller
             $validated['employeeInfo']['avatar'] = $validated['employeeInfo']['avatar']->store('avatars');
         }
 
-        $employee = Employee::create($validated['employeeInfo']);
-        $employee->addJobStatus($validated['jobStatus']);
-        $employee->addJobDescription($validated['jobDescription']);
+        $employee = DB::transaction(function() use ($validated) {
+            $employee = Employee::create($validated['employeeInfo']);
+            $employee->addJobStatus($validated['jobStatus']);
+            $employee->addJobDescription($validated['jobDescription']);
+
+            return $employee;
+        });
 
         return redirect($employee->path());
     }
@@ -78,9 +83,11 @@ class EmployeeController extends Controller
             $validated['employeeInfo']['avatar'] = $validated['employeeInfo']['avatar']->store('avatars');
         }
 
-        $employee->update($validated['employeeInfo']);
-        $employee->addJobStatus($validated['jobStatus']);
-        $employee->addJobDescription($validated['jobDescription']);
+        DB::transaction(function() use ($employee, $validated) {
+            $employee->update($validated['employeeInfo']);
+            $employee->addJobStatus($validated['jobStatus']);
+            $employee->addJobDescription($validated['jobDescription']);
+        });
 
         return redirect($employee->path());
     }
