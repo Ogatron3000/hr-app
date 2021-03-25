@@ -63,8 +63,8 @@
                 {{-- Short Info --}}
                 <div class="flex-1 text-center p-4">
                     <p class="text-xl font-semibold">{{ $employee->name }}</p>
-                    <p class="text-md italic my-3">{{ $employee->jobDescription->job_name }}</p>
-                    <p class="text-sm">{{ $employee->notes }}</p>
+                    <p class="text-md my-3">{{ $employee->jobDescription->job_name }}</p>
+                    <p class="italic text-sm">{{ $employee->notes ??  'Little is known about this employee, but we can safely assume he/she likes pina coladas and long walks on the beach.'}}</p>
                 </div>
             </div>
 

@@ -5,11 +5,11 @@ namespace Tests\Feature;
 use App\Models\Employee;
 use App\Models\JobDescription;
 use App\Models\JobStatus;
-use Database\Factories\EmployeeFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Facades\Tests\Setup\EmployeeFactory;
 use Tests\TestCase;
 
 class ManageEmployeesTest extends TestCase
@@ -44,9 +44,7 @@ class ManageEmployeesTest extends TestCase
     {
         $this->signIn();
 
-        $employee = Employee::factory()->create();
-        $employee->addJobStatus(JobStatus::factory()->raw(['employee_id' => '']));
-        $employee->addJobDescription(JobDescription::factory()->raw(['employee_id' => '']));
+        $employee = EmployeeFactory::withJobStatus()->withJobDescription()->create();
 
         $this->get($employee->path())
             ->assertOk()
@@ -99,9 +97,7 @@ class ManageEmployeesTest extends TestCase
     {
         $this->signIn();
 
-        $employee = Employee::factory()->create();
-        $employee->addJobStatus(JobStatus::factory()->raw(['employee_id' => '']));
-        $employee->addJobDescription(JobDescription::factory()->raw(['employee_id' => '']));
+        $employee = EmployeeFactory::withJobStatus()->withJobDescription()->create();
 
         $updated = array_merge(
             Employee::factory()->raw(),
@@ -124,10 +120,7 @@ class ManageEmployeesTest extends TestCase
     public function test_user_can_delete_employee(): void
     {
         $this->signIn();
-
-        $employee = Employee::factory()->create();
-        $employee->addJobStatus($status = JobStatus::factory()->raw(['employee_id' => '']));
-        $employee->addJobDescription($status = JobDescription::factory()->raw(['employee_id' => '']));
+        $employee = EmployeeFactory::withJobStatus()->withJobDescription()->create();
 
         $this->followingRedirects()
             ->delete($employee->path())
