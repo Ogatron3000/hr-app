@@ -33,9 +33,7 @@ class Employee extends Model
             $status->delete();
         }
 
-        $newStatusAttributes['employee_id'] = $this->id;
-
-        return JobStatus::create($newStatusAttributes);
+        return $this->jobStatusHistory()->create($newStatusAttributes);
     }
 
     public function jobDescription()
@@ -54,8 +52,18 @@ class Employee extends Model
             $desc->delete();
         }
 
-        $newDescriptionAttributes['employee_id'] = $this->id;
+        return $this->jobDescriptionHistory()->create($newDescriptionAttributes);
+    }
 
-        return JobDescription::create($newDescriptionAttributes);
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
+
+    public function addDocument($documentAttributes)
+    {
+        $documentAttributes['file'] = $documentAttributes['file']->store('documents');
+
+        return $this->documents()->create($documentAttributes);
     }
 }

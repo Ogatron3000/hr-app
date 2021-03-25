@@ -7,7 +7,6 @@ namespace Tests\Setup;
 use App\Models\Employee;
 use App\Models\JobDescription;
 use App\Models\JobStatus;
-use App\Models\User;
 
 class EmployeeFactory
 {

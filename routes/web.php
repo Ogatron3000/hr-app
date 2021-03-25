@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/employees/{employee}/edit', [EmployeeController::class, 'edit'])->name('employees.edit');
     Route::patch('/employees/{employee}', [EmployeeController::class, 'update'])->name('employees.update');
     Route::delete('/employees/{employee}', [EmployeeController::class, 'delete'])->name('employees.delete');
+
+    Route::get('/employees/{employee}/documents/create', [DocumentController::class, 'create'])->name('documents.create');
+    Route::post('/employees/{employee}/documents', [DocumentController::class, 'store'])->name('documents.store');
 });

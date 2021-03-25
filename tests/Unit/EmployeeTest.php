@@ -2,10 +2,12 @@
 
 namespace Tests\Unit;
 
+use App\Models\Document;
 use App\Models\Employee;
 use App\Models\JobDescription;
 use App\Models\JobStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class EmployeeTest extends TestCase
@@ -48,14 +50,34 @@ class EmployeeTest extends TestCase
         $this->assertInstanceOf(JobDescription::class, $employee->jobDescription());
     }
 
-    public function test_it_can_add_employee_status()
+    public function test_it_can_add_job_description()
     {
         $employee = Employee::factory()->create();
 
-        $statusOne = $employee->addJobStatus(JobStatus::factory()->raw());
-        $this->assertEquals($statusOne->id, $employee->jobStatus()->id);
+        $descOne = $employee->addJobDescription(JobDescription::factory()->raw());
+        $this->assertEquals($descOne->id, $employee->jobDescription()->id);
 
-        $statusTwo = $employee->addJobStatus(JobStatus::factory()->raw());
-        $this->assertEquals($statusTwo->id, $employee->jobStatus()->id);
+        $descTwo = $employee->addJobDescription(JobDescription::factory()->raw());
+        $this->assertEquals($descTwo->id, $employee->jobDescription()->id);
+    }
+
+    public function test_it_has_many_documents()
+    {
+        $employee = Employee::factory()->create();
+        Document::factory()->create(['employee_id' => $employee->id]);
+
+        $this->assertInstanceOf(Document::class, $employee->documents[0]);
+    }
+
+    public function test_it_can_add_documents()
+    {
+        $employee = Employee::factory()->create();
+
+        $docAttributes = Document::factory()->raw();
+        $docAttributes['file'] = UploadedFile::fake()->create('document.pdf');
+
+        $employee->addDocument($docAttributes);
+
+        $this->assertNotNull($employee->documents[0]);
     }
 }

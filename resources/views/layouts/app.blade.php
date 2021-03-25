@@ -103,5 +103,7 @@
     <script>
         flatpickr('#birthdate', {maxDate: 'today'});
         flatpickr('#joined', {maxDate: 'today'});
+        flatpickr('#date', {maxDate: 'today'});
+        flatpickr('#expire', {maxDate: 'today'});
     </script>
 </html>
