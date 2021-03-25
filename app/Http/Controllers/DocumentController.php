@@ -35,5 +35,15 @@ class DocumentController extends Controller
         ]);
 
         $employee->addDocument($validated);
+
+        return redirect($employee->path() . '/documents');
+    }
+
+    public function delete(Employee $employee, Document $document)
+    {
+        Storage::delete($document->file);
+        $document->delete();
+
+        return redirect($employee->path() . '/documents');
     }
 }

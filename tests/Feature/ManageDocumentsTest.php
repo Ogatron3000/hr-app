@@ -39,7 +39,7 @@ class ManageDocumentsTest extends TestCase
         $this->assertEquals("attachment; filename={$fileName}", $response->headers->get('content-disposition'));
     }
 
-    public function test_user_can_create_documents()
+    public function test_user_can_create_employee_documents()
     {
         $this->signIn();
 
@@ -52,5 +52,22 @@ class ManageDocumentsTest extends TestCase
         $this->post($employee->path() . '/documents', $document);
 
         Storage::disk('local')->assertExists('documents/' . $document['file']->hashName());
+    }
+
+    public function test_user_can_delete_employee_documents()
+    {
+        $this->signIn();
+
+        $employee = EmployeeFactory::withJobStatus()->withJobDescription()->withDocument()->create();
+
+        $document = $employee->documents[0];
+
+        $this->followingRedirects()
+            ->delete($employee->path() . '/documents/' . $document->id)
+            ->assertDontSee($document->name)
+            ->assertDontSee($document->date)
+            ->assertDontSee($document->expiry);
+
+        Storage::disk('local')->assertMissing($document->file);
     }
 }

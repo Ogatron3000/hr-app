@@ -38,4 +38,5 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/employees/{employee}/documents/create', [DocumentController::class, 'create'])->name('documents.create');
     Route::get('/employees/{employee}/documents/{document}', [DocumentController::class, 'download'])->name('documents.download');
     Route::post('/employees/{employee}/documents', [DocumentController::class, 'store'])->name('documents.store');
+    Route::delete('/employees/{employee}/documents/{document}', [DocumentController::class, 'delete'])->name('documents.delete');
 });

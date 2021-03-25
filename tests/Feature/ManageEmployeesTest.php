@@ -131,6 +131,6 @@ class ManageEmployeesTest extends TestCase
         $this->assertDatabaseCount('employees', 0);
         $this->assertDatabaseCount('job_statuses', 0);
         $this->assertDatabaseCount('job_descriptions', 0);
-        Storage::disk('local')->assertMissing('avatars/' . $employee['avatar']->hashName());
+        Storage::disk('local')->assertMissing('avatars/' . $employee->avatar->hashName());
     }
 }
