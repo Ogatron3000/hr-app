@@ -8,12 +8,9 @@ use App\Models\Document;
 use App\Models\Employee;
 use App\Models\JobDescription;
 use App\Models\JobStatus;
-use Illuminate\Http\UploadedFile;
 
 class EmployeeFactory
 {
-
-    protected Employee $employee;
 
     protected int $jobStatuses = 0;
 
@@ -42,18 +39,21 @@ class EmployeeFactory
         return $this;
     }
 
-    public function create(): Employee
+    public function create(int $n = 1)
     {
-        $employee = Employee::factory()->create();
+        $employees = Employee::factory($n)->create();
 
-        JobStatus::factory($this->jobStatuses)->create(['employee_id' => $employee->id]);
+        foreach ($employees as $employee) {
 
-        JobDescription::factory($this->jobDescriptions)->create(['employee_id' => $employee->id]);
+            JobStatus::factory($this->jobStatuses)->create(['employee_id' => $employee->id]);
 
-        for ($i = 0; $i < $this->documents; $i++) {
-            $employee->addDocument(Document::factory()->raw(['employee_id' => null]));
+            JobDescription::factory($this->jobDescriptions)->create(['employee_id' => $employee->id]);
+
+            for ($i = 0; $i < $this->documents; $i++) {
+                $employee->addDocument(Document::factory()->raw(['employee_id' => null]));
+            }
         }
 
-        return $employee;
+        return count($employees) === 1 ? $employees[0] : $employees;
     }
 }

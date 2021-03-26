@@ -9,15 +9,17 @@ use App\Models\ContractType;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\JobStatus;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Console\Input\Input;
 
 class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = Employee::paginate(10);
+        $employees = $this->searchResults();
 
         return view('employees.index', compact('employees'));
     }
@@ -97,5 +99,42 @@ class EmployeeController extends Controller
         $employee->delete();
 
         return redirect(route('employees.index'));
+    }
+
+    protected function searchResults(): LengthAwarePaginator
+    {
+        $employees = Employee::where([
+            $this->searchHelper('name'),
+            $this->searchHelper('birthdate'),
+            $this->searchHelper('office'),
+        ])
+            ->whereHas('jobStatusHistory', function ($q) {
+                $q->where([
+                    $this->searchHelper('contract_type_id'),
+                    $this->searchHelper('active_status_id'),
+                    $this->searchHelper('joined'),
+                    $this->searchHelper('wage'),
+                    $this->searchHelper('bank_id'),
+                ]);
+            })
+            ->whereHas('jobDescriptionHistory', function ($q) {
+                $q->where([
+                    $this->searchHelper('job_name'),
+                    $this->searchHelper('department_id'),
+                    $this->searchHelper('skills'),
+                ]);
+            })
+            ->paginate(10);
+
+         return count($employees) ? $employees : Employee::paginate(10);
+    }
+
+    protected function searchHelper($val): array
+    {
+        if (str_ends_with($val, 'id') && request()->query($val)) {
+            return [$val, '=', request()->query($val)];
+        }
+
+        return [$val, 'like', '%' . request()->query($val) . '%'];
     }
 }

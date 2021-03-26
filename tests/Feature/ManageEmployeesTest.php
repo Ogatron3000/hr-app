@@ -7,7 +7,6 @@ use App\Models\JobDescription;
 use App\Models\JobStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Facades\Tests\Setup\EmployeeFactory;
 use Tests\TestCase;
@@ -31,6 +30,7 @@ class ManageEmployeesTest extends TestCase
 
     public function test_user_can_see_employees(): void
     {
+        $this->withoutExceptionHandling();
         $this->signIn();
 
         $employee = Employee::factory()->create();
@@ -38,6 +38,18 @@ class ManageEmployeesTest extends TestCase
         $this->get(route('employees.index'))
             ->assertOk()
             ->assertSee($employee->name);
+    }
+
+    public function test_user_can_search_employees()
+    {
+        $this->signIn();
+
+        $employees = EmployeeFactory::withJobStatus()->withJobDescription()->create(3);
+
+        $this->get(route('employees.index', ['name' => $employees[0]->name]))
+            ->assertSee($employees[0]->name)
+            ->assertDontSee($employees[1]->name)
+            ->assertDontSee($employees[2]->name);
     }
 
     public function test_user_can_view_employee_details(): void
