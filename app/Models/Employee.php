@@ -19,7 +19,7 @@ class Employee extends Model
 
     public function jobStatus()
     {
-        return $this->jobStatusHistory()->whereNull('deleted_at')->first();
+        return $this->jobStatusHistory()->first();
     }
 
     public function jobStatusHistory()
@@ -38,7 +38,7 @@ class Employee extends Model
 
     public function jobDescription()
     {
-        return $this->jobDescriptionHistory()->whereNull('deleted_at')->first();
+        return $this->jobDescriptionHistory()->first();
     }
 
     public function jobDescriptionHistory()

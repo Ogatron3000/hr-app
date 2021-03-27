@@ -113,7 +113,6 @@ class EmployeeController extends Controller
                     $this->searchHelper('active_status_id'),
                     $this->searchHelper('wage'),
                     $this->searchHelper('bank_id'),
-                    ['deleted_at', '=', null]
                 ]);
             })
             ->whereHas('jobDescriptionHistory', function ($q) {
@@ -121,7 +120,6 @@ class EmployeeController extends Controller
                     $this->searchHelper('job_name'),
                     $this->searchHelper('department_id'),
                     $this->searchHelper('skills'),
-                    ['deleted_at', '=', null]
                 ]);
             })
             ->paginate(10);

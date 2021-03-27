@@ -13,6 +13,9 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+        <!-- Alpine Init -->
+        <script src="{{ asset('js/alpine-init.js') }}" defer></script>
+
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
 
