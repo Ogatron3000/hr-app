@@ -105,14 +105,12 @@ class EmployeeController extends Controller
     {
         $employees = Employee::where([
             $this->searchHelper('name'),
-            $this->searchHelper('birthdate'),
             $this->searchHelper('office'),
         ])
             ->whereHas('jobStatusHistory', function ($q) {
                 $q->where([
                     $this->searchHelper('contract_type_id'),
                     $this->searchHelper('active_status_id'),
-                    $this->searchHelper('joined'),
                     $this->searchHelper('wage'),
                     $this->searchHelper('bank_id'),
                     ['deleted_at', '=', null]

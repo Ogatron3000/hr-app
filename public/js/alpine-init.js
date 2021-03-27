@@ -58,5 +58,10 @@ function data() {
             this.isModalOpen = false
             this.trapCleanup()
         },
+        // Advanced search
+        isAdvancedSearchOpen: false,
+        toggleAdvancedSearch() {
+            this.isAdvancedSearchOpen = !this.isAdvancedSearchOpen
+        },
     }
 }

@@ -19,9 +19,6 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
 
-        {{-- Temporary: Flatpickr --}}
-        {{--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">--}}
-        {{--<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>--}}
     </head>
     <body class="font-sans antialiased">
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
