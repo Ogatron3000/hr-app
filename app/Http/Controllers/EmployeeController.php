@@ -107,7 +107,7 @@ class EmployeeController extends Controller
             $this->searchHelper('name'),
             $this->searchHelper('office'),
         ])
-            ->whereHas('jobStatusHistory', function ($q) {
+            ->whereHas('jobStatuses', function ($q) {
                 $q->where([
                     $this->searchHelper('contract_type_id'),
                     $this->searchHelper('active_status_id'),
@@ -115,7 +115,7 @@ class EmployeeController extends Controller
                     $this->searchHelper('bank_id'),
                 ]);
             })
-            ->whereHas('jobDescriptionHistory', function ($q) {
+            ->whereHas('jobDescriptions', function ($q) {
                 $q->where([
                     $this->searchHelper('job_name'),
                     $this->searchHelper('department_id'),

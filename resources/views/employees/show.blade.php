@@ -2,7 +2,7 @@
     <div>
         <div class="flex">
 
-            <div class="flex flex-col w-1/3 p-4 my-6 mr-6">
+            <div class="flex flex-col w-1/3 p-4 my-2 mr-6">
 
                 {{-- Controls --}}
                 <div class="flex justify-end">
@@ -15,6 +15,18 @@
                                 <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2h-1.528A6 6 0 004 9.528V4z" />
                                     <path fill-rule="evenodd" d="M8 10a4 4 0 00-3.446 6.032l-1.261 1.26a1 1 0 101.414 1.415l1.261-1.261A4 4 0 108 10zm-2 4a2 2 0 114 0 2 2 0 01-4 0z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="{{ $employee->path() . '/history' }}">
+                            <button
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                aria-label="Documents"
+                            >
+                                <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M8.445 14.832A1 1 0 0010 14v-2.798l5.445 3.63A1 1 0 0017 14V6a1 1 0 00-1.555-.832L10 8.798V6a1 1 0 00-1.555-.832l-6 4a1 1 0 000 1.664l6 4z" />
                                 </svg>
                             </button>
                         </a>
@@ -64,7 +76,7 @@
                 </div>
 
                 {{-- Avatar --}}
-                <div class="relative hidden w-40 h-40 mx-auto rounded-full md:block">
+                <div class="relative hidden w-40 h-40 mt-4 mx-auto rounded-full md:block">
                     <img class="object-cover w-full h-full rounded-full"
                          src="{{ asset($employee->avatar) }}"
                          alt=""

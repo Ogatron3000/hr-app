@@ -19,40 +19,60 @@ class Employee extends Model
 
     public function jobStatus()
     {
-        return $this->jobStatusHistory()->first();
+        return $this->jobStatuses()->first();
+    }
+
+    public function jobStatuses()
+    {
+        return $this->hasMany(JobStatus::class);
     }
 
     public function jobStatusHistory()
     {
-        return $this->hasMany(JobStatus::class);
+        return $this->jobStatuses()->withTrashed();
     }
 
     public function addJobStatus($newStatusAttributes)
     {
         if ($status = $this->jobStatus()) {
+
+            if (count(array_intersect($status->toArray(), $newStatusAttributes)) === count($newStatusAttributes)) {
+                return $status;
+            }
+
             $status->delete();
         }
 
-        return $this->jobStatusHistory()->create($newStatusAttributes);
+        return $this->jobStatuses()->create($newStatusAttributes);
     }
 
     public function jobDescription()
     {
-        return $this->jobDescriptionHistory()->first();
+        return $this->jobDescriptions()->first();
+    }
+
+    public function jobDescriptions()
+    {
+        return $this->hasMany(JobDescription::class);
     }
 
     public function jobDescriptionHistory()
     {
-        return $this->hasMany(JobDescription::class);
+        return $this->jobDescriptions()->withTrashed();
     }
 
     public function addJobDescription($newDescriptionAttributes)
     {
         if ($desc = $this->jobDescription()) {
+
+            if (count(array_intersect($desc->toArray(), $newDescriptionAttributes)) === count($newDescriptionAttributes)) {
+                return $desc;
+            }
+
             $desc->delete();
         }
 
-        return $this->jobDescriptionHistory()->create($newDescriptionAttributes);
+        return $this->jobDescriptions()->create($newDescriptionAttributes);
     }
 
     public function documents()

@@ -124,6 +124,8 @@ class ManageEmployeesTest extends TestCase
             ->assertSee($updated['wage'])
             ->assertSee($updated['job_name']);
 
+        $this->assertEquals(1, JobStatus::count());
+        $this->assertEquals(1, JobDescription::count());
         Storage::disk('local')->assertExists('avatars/' . $updated['avatar']->hashName());
         Storage::disk('local')->assertMissing('avatars/' . $employee['avatar']->hashName());
     }

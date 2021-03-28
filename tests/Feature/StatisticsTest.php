@@ -17,8 +17,10 @@ class StatisticsTest extends TestCase
 {
     use RefreshDatabase;
 
+    // test failing because of SQLite and MySQL differences - no TIMEDIFF and NOW() in SQLite
     public function test_user_can_see_employees_statistics()
     {
+        $this->withoutExceptionHandling();
         $this->signIn();
 
         EmployeeFactory::create(10);

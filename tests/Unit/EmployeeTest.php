@@ -24,9 +24,14 @@ class EmployeeTest extends TestCase
 
     public function test_it_has_many_job_statuses(): void
     {
-        $employee = EmployeeFactory::withJobStatus()->create();
+        $employee = EmployeeFactory::withJobStatus(5)->create();
+
+        $this->assertInstanceOf(JobStatus::class, $employee->jobStatuses[0]);
+        $this->assertCount(1, $employee->jobStatuses);
 
         $this->assertInstanceOf(JobStatus::class, $employee->jobStatusHistory[0]);
+        $this->assertCount(5, $employee->jobStatusHistory);
+
         $this->assertInstanceOf(JobStatus::class, $employee->jobStatus());
     }
 
@@ -43,9 +48,14 @@ class EmployeeTest extends TestCase
 
     public function test_it_has_many_job_descriptions(): void
     {
-        $employee = EmployeeFactory::withJobDescription()->create();
+        $employee = EmployeeFactory::withJobDescription(5)->create();
+
+        $this->assertInstanceOf(JobDescription::class, $employee->jobDescriptions[0]);
+        $this->assertCount(1, $employee->jobDescriptions);
 
         $this->assertInstanceOf(JobDescription::class, $employee->jobDescriptionHistory[0]);
+        $this->assertCount(5, $employee->jobDescriptionHistory);
+
         $this->assertInstanceOf(JobDescription::class, $employee->jobDescription());
     }
 

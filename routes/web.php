@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\StatisticsController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,4 +45,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
     // transfer to api
     Route::get('/api/statistics', [StatisticsController::class, 'api'])->name('statistics.api');
+
+    Route::get('/employees/{employee}/history', [HistoryController::class, 'index'])->name('history.index');
 });

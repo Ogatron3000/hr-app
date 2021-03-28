@@ -45,9 +45,13 @@ class EmployeeFactory
 
         foreach ($employees as $employee) {
 
-            JobStatus::factory($this->jobStatuses)->create(['employee_id' => $employee->id]);
+            for ($i = 0; $i < $this->jobStatuses; $i++) {
+                $employee->addJobStatus(JobStatus::factory()->raw(['employee_id' => null]));
+            }
 
-            JobDescription::factory($this->jobDescriptions)->create(['employee_id' => $employee->id]);
+            for ($i = 0; $i < $this->jobDescriptions; $i++) {
+                $employee->addJobDescription(JobDescription::factory()->raw(['employee_id' => null]));
+            }
 
             for ($i = 0; $i < $this->documents; $i++) {
                 $employee->addDocument(Document::factory()->raw(['employee_id' => null]));
