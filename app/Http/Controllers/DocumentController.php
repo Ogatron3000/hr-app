@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Document;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
@@ -12,7 +13,10 @@ class DocumentController extends Controller
 
     public function index(Employee $employee)
     {
-        return view('documents.index', compact('employee'));
+        $now = Carbon::now()->toDateString();
+        $nowPlusTwo = Carbon::now()->addMonths(2)->toDateString();
+
+        return view('documents.index', compact('employee', 'now', 'nowPlusTwo'));
     }
 
     public function download(Employee $employee, Document $document)

@@ -24,7 +24,7 @@ class DocumentFactory extends Factory
     public function definition()
     {
         return [
-            // 'employee_id' => Employee::factory(),
+            'employee_id' => Employee::factory(),
             'name' => $this->faker->word,
             'date' => $this->faker->date(),
             'expiry' => $this->faker->date(),

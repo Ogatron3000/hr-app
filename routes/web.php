@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\StatisticsController;
+use App\Models\Document;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,4 +49,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/employees/{employee}/history', [HistoryController::class, 'index'])->name('history.index');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/archive', [ArchiveController::class, 'index'])->name('archive');
 });
