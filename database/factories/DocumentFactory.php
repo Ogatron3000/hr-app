@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Document;
+use App\Models\Employee;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Http\UploadedFile;
 
@@ -23,6 +24,7 @@ class DocumentFactory extends Factory
     public function definition()
     {
         return [
+            // 'employee_id' => Employee::factory(),
             'name' => $this->faker->word,
             'date' => $this->faker->date(),
             'expiry' => $this->faker->date(),

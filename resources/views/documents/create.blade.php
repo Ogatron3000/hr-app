@@ -15,7 +15,7 @@
             <div class="mt-4">
                 <x-label for="date" :value="__('Date')" />
 
-                <x-input id="date" class="block mt-1 w-full" type="text" name="date" :value="old('date')" required />
+                <x-input id="date" class="block mt-1 w-full" type="date" name="date" :value="old('date')" required />
             </div>
 
             <div class="mt-4">
