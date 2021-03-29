@@ -69,6 +69,9 @@ class EmployeeTest extends TestCase
         $this->assertEquals($descOne->id, $employee->jobDescription->id);
 
         $descTwo = $employee->addJobDescription(JobDescription::factory()->raw());
+
+        $employee->refresh();
+
         $this->assertEquals($descTwo->id, $employee->jobDescription->id);
     }
 

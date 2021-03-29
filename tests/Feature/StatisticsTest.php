@@ -40,13 +40,19 @@ class StatisticsTest extends TestCase
         $contractTypes = ContractType::factory(3)->create();
 
         foreach ($employees as $employee) {
-            JobDescription::factory()->create(['employee_id'   => $employee->id,
-                                               'department_id' => $departments[fmod($employee->id - 1, 3)]->id,
-            ]);
-            JobStatus::factory()->create(['employee_id'      => $employee->id,
-                                          'active_status_id' => $activeStatuses[fmod($employee->id - 1, 3)]->id,
-                                          'contract_type_id' => $contractTypes[fmod($employee->id - 1, 3)]->id,
-            ]);
+            JobDescription::factory()->create(
+                [
+                    'employee_id'   => $employee->id,
+                    'department_id' => $departments[fmod($employee->id - 1, 3)]->id,
+                ]
+            );
+            JobStatus::factory()->create(
+                [
+                    'employee_id'      => $employee->id,
+                    'active_status_id' => $activeStatuses[fmod($employee->id - 1, 3)]->id,
+                    'contract_type_id' => $contractTypes[fmod($employee->id - 1, 3)]->id,
+                ]
+            );
         }
 
         $departmentData = Department::select('name')->withCount('jobDescriptions')->get()->toArray();
