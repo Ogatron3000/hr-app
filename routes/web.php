@@ -6,6 +6,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\StatisticsController;
+use App\Http\Controllers\UserController;
 use App\Models\Document;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
@@ -51,4 +52,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/archive', [ArchiveController::class, 'index'])->name('archive');
+
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::patch('/users/{user}', [UserController::class, 'update'])->name('users.update');
 });
