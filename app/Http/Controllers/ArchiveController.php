@@ -10,7 +10,7 @@ class ArchiveController extends Controller
 {
     public function index()
     {
-        $documents = Document::with('employee')->get();
+        $documents = Document::with('employee.jobDescriptions')->paginate(10);
         $now = Carbon::now()->toDateString();
         $nowPlusTwo = Carbon::now()->addMonths(2)->toDateString();
 

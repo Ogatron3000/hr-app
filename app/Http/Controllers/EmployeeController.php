@@ -26,10 +26,6 @@ class EmployeeController extends Controller
 
     public function show(Employee $employee)
     {
-        // pre-load status and description
-        $employee['jobStatus'] = $employee->jobStatus();
-        $employee['jobDescription'] = $employee->jobDescription();
-
         return view('employees.show', compact('employee'));
     }
 
@@ -47,11 +43,12 @@ class EmployeeController extends Controller
     {
         $validated = $request->splitValidated();
 
-        if (array_key_exists('avatar', $validated['employeeInfo'])) {
-            $validated['employeeInfo']['avatar'] = $validated['employeeInfo']['avatar']->store('avatars');
-        }
-
         $employee = DB::transaction(function() use ($validated) {
+
+            if (array_key_exists('avatar', $validated['employeeInfo'])) {
+                $validated['employeeInfo']['avatar'] = $validated['employeeInfo']['avatar']->store('avatars');
+            }
+
             $employee = Employee::create($validated['employeeInfo']);
             $employee->addJobStatus($validated['jobStatus']);
             $employee->addJobDescription($validated['jobDescription']);
@@ -69,10 +66,6 @@ class EmployeeController extends Controller
         $banks = Bank::all();
         $departments = Department::all();
 
-        // pre-load status and description
-        $employee['jobStatus'] = $employee->jobStatus();
-        $employee['jobDescription'] = $employee->jobDescription();
-
         return view('employees.edit', compact('employee', 'contractTypes', 'activeStatuses', 'banks', 'departments'));
     }
 
@@ -80,12 +73,13 @@ class EmployeeController extends Controller
     {
         $validated = $request->splitValidated();
 
-        if (array_key_exists('avatar', $validated['employeeInfo'])) {
-            Storage::delete($employee->avatar);
-            $validated['employeeInfo']['avatar'] = $validated['employeeInfo']['avatar']->store('avatars');
-        }
-
         DB::transaction(function() use ($employee, $validated) {
+
+            if (array_key_exists('avatar', $validated['employeeInfo'])) {
+                Storage::delete($employee->avatar);
+                $validated['employeeInfo']['avatar'] = $validated['employeeInfo']['avatar']->store('avatars');
+            }
+
             $employee->update($validated['employeeInfo']);
             $employee->addJobStatus($validated['jobStatus']);
             $employee->addJobDescription($validated['jobDescription']);
@@ -103,31 +97,33 @@ class EmployeeController extends Controller
 
     protected function searchResults(): LengthAwarePaginator
     {
-        $employees = Employee::where([
-            $this->searchHelper('name'),
-            $this->searchHelper('office'),
+        return Employee::where([
+            $this->determineOperator('name'),
+            $this->determineOperator('office'),
         ])
             ->whereHas('jobStatuses', function ($q) {
                 $q->where([
-                    $this->searchHelper('contract_type_id'),
-                    $this->searchHelper('active_status_id'),
-                    $this->searchHelper('wage'),
-                    $this->searchHelper('bank_id'),
+                    $this->determineOperator('contract_type_id'),
+                    $this->determineOperator('active_status_id'),
+                    $this->determineOperator('wage'),
+                    $this->determineOperator('bank_id'),
                 ]);
             })
             ->whereHas('jobDescriptions', function ($q) {
                 $q->where([
-                    $this->searchHelper('job_name'),
-                    $this->searchHelper('department_id'),
-                    $this->searchHelper('skills'),
+                    $this->determineOperator('job_name'),
+                    $this->determineOperator('department_id'),
+                    $this->determineOperator('skills'),
                 ]);
             })
+            ->with('jobStatuses.contractType',
+                'jobStatuses.activeStatus',
+                'jobStatuses.bank',
+                'jobDescriptions.department')
             ->paginate(10);
-
-         return count($employees) ? $employees : Employee::paginate(10);
     }
 
-    protected function searchHelper($val): array
+    protected function determineOperator($val): array
     {
         if (str_ends_with($val, 'id') && request()->query($val)) {
             return [$val, '=', request()->query($val)];

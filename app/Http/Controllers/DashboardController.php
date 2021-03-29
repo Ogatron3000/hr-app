@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $docsThatExpireSoon = Document::with('employee')
             ->where('expiry', '>', Carbon::now())
             ->where('expiry', '<', Carbon::now()->addMonths(2))
-            ->get();
+            ->paginate(10);
 
         return view('dashboard', compact('employeeCount', 'departmentCount', 'documentCount', 'wageExpenses', 'docsThatExpireSoon'));
     }

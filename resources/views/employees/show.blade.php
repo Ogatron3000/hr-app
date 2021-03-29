@@ -2,14 +2,14 @@
     <div>
         <div class="flex">
 
-            <div class="flex flex-col w-1/3 p-4 my-2 mr-6">
+            <div class="flex flex-col w-1/3 p-4 my-2 mr-6 dark:text-gray-400">
 
                 {{-- Controls --}}
                 <div class="flex justify-end">
                     <div>
                         <a href="{{ $employee->path() . '/documents' }}">
                             <button
-                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-purple-300 focus:outline-none focus:shadow-outline-gray"
                                 aria-label="Documents"
                             >
                                 <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
@@ -22,7 +22,7 @@
                     <div>
                         <a href="{{ $employee->path() . '/history' }}">
                             <button
-                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-purple-300 focus:outline-none focus:shadow-outline-gray"
                                 aria-label="Documents"
                             >
                                 <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
@@ -34,7 +34,7 @@
                     <div>
                         <a href="{{ $employee->path() . '/edit' }}">
                             <button
-                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-purple-300 focus:outline-none focus:shadow-outline-gray"
                                 aria-label="Edit"
                             >
                                 <svg
@@ -55,7 +55,7 @@
                             @method('DELETE')
                             @csrf
                             <button
-                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-purple-300 focus:outline-none focus:shadow-outline-gray"
                                 aria-label="Delete"
                             >
                                 <svg

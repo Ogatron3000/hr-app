@@ -1,5 +1,10 @@
-<x-app-layout>
-    <div class="grid gap-6 my-8 md:grid-cols-2">
+<x-chart-layout>
+
+    <h2 class="my-8 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        Statistics
+    </h2>
+
+    <div class="grid gap-6 mb-8 md:grid-cols-2">
 
         <div
             class="min-w-0 p-4 bg-white rounded-lg shadow dark:bg-gray-800"
@@ -41,4 +46,4 @@
             <canvas id="3"></canvas>
         </div>
     </div>
-</x-app-layout>
+</x-chart-layout>

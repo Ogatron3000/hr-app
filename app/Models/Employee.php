@@ -17,9 +17,9 @@ class Employee extends Model
         return '/employees/' . $this->id;
     }
 
-    public function jobStatus()
+    public function getJobStatusAttribute()
     {
-        return $this->jobStatuses()->first();
+        return $this->jobStatuses[0];
     }
 
     public function jobStatuses()
@@ -34,7 +34,7 @@ class Employee extends Model
 
     public function addJobStatus($newStatusAttributes)
     {
-        if ($status = $this->jobStatus()) {
+        if ($status = $this->jobStatus) {
 
             if (count(array_intersect($status->toArray(), $newStatusAttributes)) === count($newStatusAttributes)) {
                 return $status;
@@ -46,9 +46,9 @@ class Employee extends Model
         return $this->jobStatuses()->create($newStatusAttributes);
     }
 
-    public function jobDescription()
+    public function getJobDescriptionAttribute()
     {
-        return $this->jobDescriptions()->first();
+        return $this->jobDescriptions[0];
     }
 
     public function jobDescriptions()
@@ -63,7 +63,7 @@ class Employee extends Model
 
     public function addJobDescription($newDescriptionAttributes)
     {
-        if ($desc = $this->jobDescription()) {
+        if ($desc = $this->jobDescription) {
 
             if (count(array_intersect($desc->toArray(), $newDescriptionAttributes)) === count($newDescriptionAttributes)) {
                 return $desc;
