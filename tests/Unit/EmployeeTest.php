@@ -42,6 +42,9 @@ class EmployeeTest extends TestCase
         $this->assertEquals($statusOne->id, $employee->jobStatus->id);
 
         $statusTwo = $employee->addJobStatus(JobStatus::factory()->raw());
+
+        $employee->refresh();
+
         $this->assertEquals($statusTwo->id, $employee->jobStatus->id);
     }
 

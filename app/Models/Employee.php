@@ -19,7 +19,7 @@ class Employee extends Model
 
     public function getJobStatusAttribute()
     {
-        return $this->jobStatuses()->first();
+        return $this->jobStatuses->first();
     }
 
     public function jobStatuses()
@@ -34,7 +34,7 @@ class Employee extends Model
 
     public function addJobStatus($newStatusAttributes)
     {
-        if ($status = $this->jobStatus) {
+        if ($status = $this->fresh()->jobStatus) {
 
             if (count(array_intersect($status->toArray(), $newStatusAttributes)) === count($newStatusAttributes)) {
                 return $status;
@@ -48,7 +48,7 @@ class Employee extends Model
 
     public function getJobDescriptionAttribute()
     {
-        return $this->jobDescriptions()->first();
+        return $this->jobDescriptions->first();
     }
 
     public function jobDescriptions()
@@ -63,7 +63,7 @@ class Employee extends Model
 
     public function addJobDescription($newDescriptionAttributes)
     {
-        if ($desc = $this->jobDescription) {
+        if ($desc = $this->fresh()->jobDescription) {
 
             if (count(array_intersect($desc->toArray(), $newDescriptionAttributes)) === count($newDescriptionAttributes)) {
                 return $desc;
