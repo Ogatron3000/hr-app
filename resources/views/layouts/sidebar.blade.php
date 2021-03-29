@@ -17,7 +17,7 @@
                   ></span>
                 @endif
                 <a
-                    class="{{request()->routeIs('dashboard') ? 'text-gray-800' : ''}} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+                    class="{{request()->routeIs('dashboard') ? 'text-gray-800 dark:text-gray-100' : ''}} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                     href="{{ route('dashboard') }}"
                 >
                     <svg
@@ -47,7 +47,7 @@
                     ></span>
                 @endif
                 <a
-                    class="{{request()->routeIs('employees.index') ? 'text-gray-800' : ''}} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    class="{{request()->routeIs('employees.index') ? 'text-gray-800 dark:text-gray-100' : ''}} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                     href="{{ route('employees.index') }}"
                 >
                     <svg
@@ -75,7 +75,7 @@
                     ></span>
                 @endif
                 <a
-                    class="{{request()->routeIs('archive') ? 'text-gray-800' : ''}} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    class="{{request()->routeIs('archive') ? 'text-gray-800 dark:text-gray-100' : ''}} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                     href="{{ route('archive') }}"
                 >
                     <svg
@@ -103,7 +103,7 @@
                     ></span>
                 @endif
                 <a
-                    class="{{request()->routeIs('statistics.index') ? 'text-gray-800' : ''}} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    class="{{request()->routeIs('statistics.index') ? 'text-gray-800 dark:text-gray-100' : ''}} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                     href="{{ route('statistics.index') }}"
                 >
                     <svg

@@ -1,6 +1,8 @@
 <x-app-layout>
     <div class="w-1/2 p-4 my-8 mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-400">
 
+        <h2 class="text-lg text-center p-4">Edit Profile</h2>
+
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ $user->path() }}">

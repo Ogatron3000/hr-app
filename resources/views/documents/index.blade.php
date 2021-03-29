@@ -2,11 +2,19 @@
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
 
         <div class="flex items-center py-8">
-            <p class="italic">Viewing documents for <span class="not-italic font-semibold">{{ $employee->name }}</span></p>
+            <p class="italic text-gray-500">
+                Viewing documents for
+                <a
+                    class="ml-2 not-italic font-semibold text-gray-800 dark:text-gray-100"
+                    href="{{ $employee->path() }}"
+                >
+                    {{ $employee->name }}
+                </a>
+            </p>
             <div>
                 <a href="{{ $employee->path() . '/documents/create' }}">
                     <button
-                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-purple-300 focus:outline-none focus:shadow-outline-gray"
                         aria-label="Documents"
                     >
                         <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
@@ -57,7 +65,7 @@
                             <div class="flex items-center">
                                 <a href="{{ $document->path() }}">
                                     <button
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-purple-300 focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Download"
                                     >
                                         <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
@@ -70,7 +78,7 @@
                                         @method('DELETE')
                                         @csrf
                                         <button
-                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-purple-300 focus:outline-none focus:shadow-outline-gray"
                                             aria-label="Delete"
                                         >
                                             <svg

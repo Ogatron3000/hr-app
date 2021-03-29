@@ -7,7 +7,7 @@
     <div class="grid gap-6 mb-8 md:grid-cols-2">
 
         <div
-            class="min-w-0 p-4 bg-white rounded-lg shadow dark:bg-gray-800"
+            class="min-w-0 p-4 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-300"
         >
             <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
                 General statistics
