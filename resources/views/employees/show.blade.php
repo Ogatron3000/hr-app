@@ -128,6 +128,7 @@
                 <div class="mt-4">
                     <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Email</p> <p class="mt-1">{{ $employee->email }}</p></div>
                     <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Phone</p> <p class="mt-1">{{ $employee->phone }}</p></div>
+                    <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Cellphone</p> <p class="mt-1">{{ $employee->cellphone }}</p></div>
                     <div class="border-t p-2"><p class="text-xs font-semibold uppercase">Office</p> <p class="mt-1">{{ $employee->office }}</p></div>
                 </div>
             </div>

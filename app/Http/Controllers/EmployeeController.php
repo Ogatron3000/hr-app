@@ -19,7 +19,15 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = $this->searchResults();
+        $results = $this->search();
+
+        $employees = ! $results->isEmpty()
+            ? $results
+            : Employee::with('jobStatuses.contractType',
+                'jobStatuses.activeStatus',
+                'jobStatuses.bank',
+                'jobDescriptions.department')
+                ->paginate(10);
 
         return view('employees.index', compact('employees'));
     }
@@ -95,7 +103,7 @@ class EmployeeController extends Controller
         return redirect(route('employees.index'));
     }
 
-    protected function searchResults(): LengthAwarePaginator
+    protected function search(): LengthAwarePaginator
     {
         return Employee::where([
             $this->determineOperator('name'),

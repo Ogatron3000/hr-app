@@ -29,10 +29,9 @@ class EmployeeTest extends TestCase
         $this->assertInstanceOf(JobStatus::class, $employee->jobStatuses[0]);
         $this->assertCount(1, $employee->jobStatuses);
 
-        $this->assertInstanceOf(JobStatus::class, $employee->jobStatusHistory[0]);
         $this->assertCount(5, $employee->jobStatusHistory);
 
-        $this->assertInstanceOf(JobStatus::class, $employee->jobStatus());
+        $this->assertInstanceOf(JobStatus::class, $employee->jobStatus);
     }
 
     public function test_it_can_add_job_status()
@@ -40,10 +39,10 @@ class EmployeeTest extends TestCase
         $employee = Employee::factory()->create();
 
         $statusOne = $employee->addJobStatus(JobStatus::factory()->raw());
-        $this->assertEquals($statusOne->id, $employee->jobStatus()->id);
+        $this->assertEquals($statusOne->id, $employee->jobStatus->id);
 
         $statusTwo = $employee->addJobStatus(JobStatus::factory()->raw());
-        $this->assertEquals($statusTwo->id, $employee->jobStatus()->id);
+        $this->assertEquals($statusTwo->id, $employee->jobStatus->id);
     }
 
     public function test_it_has_many_job_descriptions(): void
@@ -56,7 +55,7 @@ class EmployeeTest extends TestCase
         $this->assertInstanceOf(JobDescription::class, $employee->jobDescriptionHistory[0]);
         $this->assertCount(5, $employee->jobDescriptionHistory);
 
-        $this->assertInstanceOf(JobDescription::class, $employee->jobDescription());
+        $this->assertInstanceOf(JobDescription::class, $employee->jobDescription);
     }
 
     public function test_it_can_add_job_description()
@@ -64,10 +63,10 @@ class EmployeeTest extends TestCase
         $employee = Employee::factory()->create();
 
         $descOne = $employee->addJobDescription(JobDescription::factory()->raw());
-        $this->assertEquals($descOne->id, $employee->jobDescription()->id);
+        $this->assertEquals($descOne->id, $employee->jobDescription->id);
 
         $descTwo = $employee->addJobDescription(JobDescription::factory()->raw());
-        $this->assertEquals($descTwo->id, $employee->jobDescription()->id);
+        $this->assertEquals($descTwo->id, $employee->jobDescription->id);
     }
 
     public function test_it_has_many_documents()

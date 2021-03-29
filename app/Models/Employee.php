@@ -19,7 +19,7 @@ class Employee extends Model
 
     public function getJobStatusAttribute()
     {
-        return $this->jobStatuses[0];
+        return $this->jobStatuses()->first();
     }
 
     public function jobStatuses()
@@ -48,7 +48,7 @@ class Employee extends Model
 
     public function getJobDescriptionAttribute()
     {
-        return $this->jobDescriptions[0];
+        return $this->jobDescriptions()->first();
     }
 
     public function jobDescriptions()

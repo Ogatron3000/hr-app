@@ -32,6 +32,7 @@ class EmployeeRequest extends FormRequest
             'address' => 'required',
             'email' => 'required|email',
             'phone' => 'required',
+            'cellphone' => 'required',
             'office' => 'required',
             'notes' => 'nullable',
 

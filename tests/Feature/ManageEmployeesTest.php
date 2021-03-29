@@ -33,7 +33,7 @@ class ManageEmployeesTest extends TestCase
         $this->withoutExceptionHandling();
         $this->signIn();
 
-        $employee = Employee::factory()->create();
+        $employee = EmployeeFactory::withJobStatus()->withJobDescription()->create();
 
         $this->get(route('employees.index'))
             ->assertOk()
@@ -66,15 +66,16 @@ class ManageEmployeesTest extends TestCase
             ->assertSee($employee->address)
             ->assertSee($employee->email)
             ->assertSee($employee->phone)
+            ->assertSee($employee->cellphone)
             ->assertSee($employee->office)
-            ->assertSee($employee->jobStatus()->date)
-            ->assertSee($employee->jobStatus()->wage)
-            ->assertSee($employee->jobStatus()->bank->name)
-            ->assertSee($employee->jobStatus()->bank_account)
-            ->assertSee($employee->jobDescription()->job_name)
-            ->assertSee($employee->jobDescription()->department->name)
-            ->assertSee($employee->jobDescription()->description)
-            ->assertSee($employee->jobDescription()->skills);
+            ->assertSee($employee->jobStatus->date)
+            ->assertSee($employee->jobStatus->wage)
+            ->assertSee($employee->jobStatus->bank->name)
+            ->assertSee($employee->jobStatus->bank_account)
+            ->assertSee($employee->jobDescription->job_name)
+            ->assertSee($employee->jobDescription->department->name)
+            ->assertSee($employee->jobDescription->description)
+            ->assertSee($employee->jobDescription->skills);
     }
 
     public function test_user_can_add_employee(): void
@@ -99,8 +100,8 @@ class ManageEmployeesTest extends TestCase
             ->assertSee($employee['description']);
 
         $this->assertNotNull(Employee::find(1));
-        $this->assertNotNull(Employee::find(1)->jobStatus());
-        $this->assertNotNull(Employee::find(1)->jobDescription());
+        $this->assertNotNull(Employee::find(1)->jobStatus);
+        $this->assertNotNull(Employee::find(1)->jobDescription);
         Storage::disk('local')->assertExists('avatars/' . $employee['avatar']->hashName());
     }
 

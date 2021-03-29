@@ -30,6 +30,7 @@ class EmployeeFactory extends Factory
             'address' => $this->faker->address,
             'email' => $this->faker->email,
             'phone' => $this->faker->phoneNumber,
+            'cellphone' => $this->faker->e164PhoneNumber,
             'office' => 'main office',
             'notes' => $this->faker->text
         ];

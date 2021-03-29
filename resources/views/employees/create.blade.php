@@ -91,7 +91,13 @@
                     <div class="mt-4">
                         <x-label for="phone" :value="__('Phone')" />
 
-                        <x-input id="phone" class="block mt-1 w-full" type="tel" pattern="[0-9]{3}/[0-9]{3}-[0-9]{3,4}" name="phone" :value="old('phone')" required />
+                        <x-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required />
+                    </div>
+
+                    <div class="mt-4">
+                        <x-label for="cellphone" :value="__('Cellphone')" />
+
+                        <x-input id="cellphone" class="block mt-1 w-full" type="tel" name="cellphone" :value="old('cellphone')" required />
                     </div>
 
                     <div class="mt-4">

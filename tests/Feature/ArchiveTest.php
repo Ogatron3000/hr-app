@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Document;
+use Facades\Tests\Setup\EmployeeFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -13,9 +14,12 @@ class ArchiveTest extends TestCase
 
     public function test_user_can_see_all_documents_in_archive()
     {
+        $this->withoutExceptionHandling();
         $this->signIn();
 
-        $documents = Document::factory(3)->create();
+        $employee = EmployeeFactory::withJobDescription()->withDocument(3)->create();
+
+        $documents = $employee->documents;
 
         $this->get(route('archive'))
             ->assertOk()
