@@ -109,7 +109,7 @@
                     <div class="mt-4">
                         <x-label for="cellphone" :value="__('Cellphone')" />
 
-                        <x-input id="cellphone" class="block mt-1 w-full" type="tel" name="cellphone" :value="$employee->Cellphone" required />
+                        <x-input id="cellphone" class="block mt-1 w-full" type="tel" name="cellphone" :value="$employee->cellphone" required />
                     </div>
 
                     <div class="mt-4">
