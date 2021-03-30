@@ -29,7 +29,7 @@ class StatisticsController extends Controller
         // $averageExp = number_format(JobStatus::selectRaw('AVG(DATEDIFF(NOW(), joined)/365) as avg')->first()->avg, 2);
 
         // Hardcode until MySQL is set up on Heroku
-        $averageAge = 5;
+        $averageExp = 5;
 
         return view('statistics.index', compact('employeeCount', 'averageAge', 'averageWage', 'averageExp'));
     }
