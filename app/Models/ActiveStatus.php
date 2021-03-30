@@ -11,6 +11,6 @@ class ActiveStatus extends Model
 
     public function jobStatuses()
     {
-        return $this->hasMany(jobStatus::class);
+        return $this->hasMany(JobStatus::class);
     }
 }
