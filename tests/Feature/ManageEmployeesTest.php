@@ -7,6 +7,7 @@ use App\Models\JobDescription;
 use App\Models\JobStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Facades\Tests\Setup\EmployeeFactory;
 use Tests\TestCase;
@@ -85,7 +86,7 @@ class ManageEmployeesTest extends TestCase
         $employee = array_merge(
             Employee::factory()->raw(),
             JobStatus::factory()->raw(['employee_id' => '']),
-            JobDescription::factory()->raw(['employee_id' => ''])
+            JobDescription::factory()->raw(['employee_id' => '', 'avatar' => UploadedFile::fake()->image('avatar.jpg')])
         );
 
         $this->get(route('employees.create'))->assertOk();
@@ -114,7 +115,7 @@ class ManageEmployeesTest extends TestCase
         $updated = array_merge(
             Employee::factory()->raw(),
             JobStatus::factory()->raw(['employee_id' => '']),
-            JobDescription::factory()->raw(['employee_id' => ''])
+            JobDescription::factory()->raw(['employee_id' => '', 'avatar' => UploadedFile::fake()->image('avatar.jpg')])
         );
 
         $this->get($employee->path() . '/edit')->assertOk();
@@ -128,7 +129,7 @@ class ManageEmployeesTest extends TestCase
         $this->assertEquals(1, JobStatus::count());
         $this->assertEquals(1, JobDescription::count());
         Storage::disk('local')->assertExists('avatars/' . $updated['avatar']->hashName());
-        Storage::disk('local')->assertMissing('avatars/' . $employee['avatar']->hashName());
+        Storage::disk('local')->assertMissing('avatars/' . $employee['avatar']);
     }
 
     public function test_user_can_delete_employee(): void
@@ -145,6 +146,6 @@ class ManageEmployeesTest extends TestCase
         $this->assertDatabaseCount('employees', 0);
         $this->assertDatabaseCount('job_statuses', 0);
         $this->assertDatabaseCount('job_descriptions', 0);
-        Storage::disk('local')->assertMissing('avatars/' . $employee->avatar->hashName());
+        Storage::disk('local')->assertMissing('avatars/' . $employee->avatar);
     }
 }

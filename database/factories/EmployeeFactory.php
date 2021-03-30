@@ -24,7 +24,7 @@ class EmployeeFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'avatar' => UploadedFile::fake()->image('old_avatar.jpg'),
+            'avatar' => 'https://i.pravatar.cc/160?img=' . random_int(1, 70),
             'birthdate' => $this->faker->date(),
             'national_id' => '1234567890123',
             'address' => $this->faker->address,

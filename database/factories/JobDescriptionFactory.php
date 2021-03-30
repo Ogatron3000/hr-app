@@ -24,7 +24,7 @@ class JobDescriptionFactory extends Factory
     public function definition()
     {
         return [
-            'job_name' => $this->faker->word,
+            'job_name' => $this->faker->jobTitle,
             'employee_id' => Employee::factory(),
             'department_id' => Department::factory(),
             'description' => $this->faker->text,

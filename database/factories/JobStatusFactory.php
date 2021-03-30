@@ -28,7 +28,7 @@ class JobStatusFactory extends Factory
             'contract_type_id' => ContractType::factory(),
             'active_status_id' => ActiveStatus::factory(),
             'joined' => $this->faker->date(),
-            'wage' => 1500.00,
+            'wage' => $this->faker->randomFloat(2, 1000, 5000),
             'bank_id' => Bank::factory(),
             'bank_account' => $this->faker->bankAccountNumber,
         ];
