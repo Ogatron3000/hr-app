@@ -31,7 +31,7 @@ class StatisticsController extends Controller
         // Hardcode until MySQL is set up on Heroku
         $averageExp = 5;
 
-        return view('statistics.index', compact('employeeCount', 'averageAge', 'averageWage', 'averageExp'));
+        return view('statistics', compact('employeeCount', 'averageAge', 'averageWage', 'averageExp'));
     }
 
     public function api()
