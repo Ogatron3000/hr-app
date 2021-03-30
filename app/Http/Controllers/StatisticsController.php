@@ -17,13 +17,19 @@ class StatisticsController extends Controller
         $employeeCount = Employee::count();
 
         // avg age
-        $averageAge = number_format(Employee::selectRaw('AVG(DATEDIFF(NOW(), birthdate)/365) as avg')->first()->avg, 2);
+        // $averageAge = number_format(Employee::selectRaw('AVG(DATEDIFF(NOW(), birthdate)/365) as avg')->first()->avg, 2);
+
+        // Hardcode until MySQL is set up on Heroku
+        $averageAge = 25;
 
         // avg wage
         $averageWage = number_format(JobStatus::average('wage'), 2);
 
         // avg exp
-        $averageExp = number_format(JobStatus::selectRaw('AVG(DATEDIFF(NOW(), joined)/365) as avg')->first()->avg, 2);
+        // $averageExp = number_format(JobStatus::selectRaw('AVG(DATEDIFF(NOW(), joined)/365) as avg')->first()->avg, 2);
+
+        // Hardcode until MySQL is set up on Heroku
+        $averageAge = 5;
 
         return view('statistics.index', compact('employeeCount', 'averageAge', 'averageWage', 'averageExp'));
     }
