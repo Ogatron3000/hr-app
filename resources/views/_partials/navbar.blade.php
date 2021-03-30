@@ -49,7 +49,7 @@
                         </svg>
                     </button>
                 </div>
-                @include('layouts.advanced-search')
+                @include('_partials.advanced-search')
             </form>
         </div>
         <ul class="flex items-center flex-shrink-0 space-x-4">

@@ -21,9 +21,9 @@
     </head>
     <body class="font-sans antialiased">
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
-            @include('layouts.sidebar')
+            @include('_partials.sidebar')
             <div class="flex flex-col flex-1 w-full">
-                @include('layouts.navbar')
+                @include('_partials.navbar')
                 <main class="h-full overflow-y-auto">
                     <div class="container px-6 mx-auto grid">
                         {{ $slot }}

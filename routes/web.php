@@ -29,6 +29,7 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 Route::group(['middleware' => 'auth'], function() {
+
     Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
     Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
     Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
@@ -43,13 +44,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/employees/{employee}/documents', [DocumentController::class, 'store'])->name('documents.store');
     Route::delete('/employees/{employee}/documents/{document}', [DocumentController::class, 'delete'])->name('documents.delete');
 
-    Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
-    // transfer to api
-    Route::get('/api/statistics', [StatisticsController::class, 'api'])->name('statistics.api');
-
-    Route::get('/employees/{employee}/history', [HistoryController::class, 'index'])->name('history.index');
+    Route::get('/employees/{employee}/history', [HistoryController::class, 'index'])->name('history');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics');
 
     Route::get('/archive', [ArchiveController::class, 'index'])->name('archive');
 

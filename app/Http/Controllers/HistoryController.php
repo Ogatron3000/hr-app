@@ -13,6 +13,6 @@ class HistoryController extends Controller
 
         $jobDescriptionHistory = $employee->jobDescriptionHistory()->with('department')->latest()->get();
 
-        return view('history.index', compact('jobStatusHistory', 'jobDescriptionHistory'));
+        return view('history', compact('jobStatusHistory', 'jobDescriptionHistory'));
     }
 }
