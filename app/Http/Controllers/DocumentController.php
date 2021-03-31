@@ -13,10 +13,11 @@ class DocumentController extends Controller
 
     public function index(Employee $employee)
     {
+        $documents = $employee->documents()->with('employee')->paginate(10);
         $now = Carbon::now()->toDateString();
         $nowPlusTwo = Carbon::now()->addMonths(2)->toDateString();
 
-        return view('documents.index', compact('employee', 'now', 'nowPlusTwo'));
+        return view('documents.index', compact('employee', 'documents', 'now', 'nowPlusTwo'));
     }
 
     public function download(Employee $employee, Document $document)

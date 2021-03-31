@@ -38,7 +38,7 @@
                 <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                 >
-                @foreach($employee->documents as $document)
+                @foreach($documents as $document)
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
                             {{ $document->name }}
@@ -103,8 +103,8 @@
                 </tbody>
             </table>
         </div>
-        {{--<div>--}}
-        {{--    {{ ($employee->documents())->onEachSide(0)->links() }}--}}
-        {{--</div>--}}
+        <div>
+            {{ $documents->onEachSide(0)->links() }}
+        </div>
     </div>
 </x-app-layout>
