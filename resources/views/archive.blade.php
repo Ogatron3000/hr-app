@@ -29,7 +29,7 @@
                                 >
                                     <img
                                         class="object-cover w-full h-full rounded-full"
-                                        src="{{ asset($document->employee->avatar) }}"
+                                        src="{{ $document->employee->avatarUrl($document->employee->avatar) }}"
                                         alt=""
                                         loading="lazy"
                                     />

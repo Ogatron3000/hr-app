@@ -54,7 +54,7 @@ class EmployeeController extends Controller
         $employee = DB::transaction(function() use ($validated) {
 
             if (array_key_exists('avatar', $validated['employeeInfo'])) {
-                $validated['employeeInfo']['avatar'] = $validated['employeeInfo']['avatar']->store('avatars');
+                $validated['employeeInfo']['avatar'] = $validated['employeeInfo']['avatar']->storePublicly('avatars');
             }
 
             $employee = Employee::create($validated['employeeInfo']);
@@ -85,7 +85,7 @@ class EmployeeController extends Controller
 
             if (array_key_exists('avatar', $validated['employeeInfo'])) {
                 Storage::delete($employee->avatar);
-                $validated['employeeInfo']['avatar'] = $validated['employeeInfo']['avatar']->store('avatars');
+                $validated['employeeInfo']['avatar'] = $validated['employeeInfo']['avatar']->storePublicly('avatars');
             }
 
             $employee->update($validated['employeeInfo']);

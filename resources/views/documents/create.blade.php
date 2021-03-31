@@ -3,6 +3,8 @@
 
         <h2 class="text-lg text-center p-4">Add Document</h2>
 
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
         <form method="POST" action="{{ $employee->path() . '/documents' }}" enctype="multipart/form-data">
             @csrf
 

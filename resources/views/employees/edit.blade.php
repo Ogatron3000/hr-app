@@ -59,7 +59,7 @@
                             {{-- Avatar --}}
                             <div class="relative hidden w-10 h-10 ml-3 rounded-full md:block">
                                 <img class="object-cover w-full h-full rounded-full"
-                                     src="{{ asset($employee->avatar) }}"
+                                     src="{{ $employee->avatarUrl($employee->avatar) }}"
                                      alt=""
                                      loading="lazy"/>
                                 <div class="absolute inset-0 rounded-full shadow-inner"

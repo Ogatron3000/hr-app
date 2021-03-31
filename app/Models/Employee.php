@@ -5,12 +5,18 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Employee extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
+
+    public function avatarUrl($path)
+    {
+        return str_contains($path, 'pravatar') ? $path : Storage::url($path);
+    }
 
     public function path()
     {

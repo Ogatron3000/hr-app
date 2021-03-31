@@ -31,7 +31,7 @@
                                 >
                                     <img
                                         class="object-cover w-full h-full rounded-full"
-                                        src="{{ asset($employee->avatar) }}"
+                                        src="{{ $employee->avatarUrl($employee->avatar) }}"
                                         alt=""
                                         loading="lazy"
                                     />
