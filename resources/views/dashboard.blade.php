@@ -2,7 +2,7 @@
 
     {{-- Greeting --}}
     <h2 class="my-8 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-        Welcome, {{ auth()->user()->name }}.
+        Welcome, {{ auth()->user()->name }}
     </h2>
 
     {{-- CTA --}}
