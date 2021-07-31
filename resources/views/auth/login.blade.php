@@ -20,6 +20,11 @@
             Login
         </h1>
 
+        <div class="flex flex-col p-2 my-4 bg-gray-100 rounded-md">
+            <small>admin@admin.com</small>
+            <small>password</small>
+        </div>
+
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
