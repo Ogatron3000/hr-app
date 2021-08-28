@@ -1,6 +1,6 @@
 HR management application for managing employees.
 
-Live preview: amp-hr-app.herokuapp.com
+Live preview: https://amp-hr-app.herokuapp.com/login
 
 Built following Test Driven Development principles, utilizing both feature and unit test. Integrated third-party dashboard theme with night mode.
 
